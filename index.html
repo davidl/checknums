@@ -1,0 +1,395 @@
+
+<!doctype html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckNums: Check Your Powerball Tickets</title>
+<meta property="twitter:card" content="summary">
+<meta property="twitter:site" content="@checknums">
+<meta property="og:url" content="https://checknums.com">
+<meta property="og:description" content="Quickly and easily check multiple Powerball tickets.">
+<meta property="og:title" content="CheckNums: Check Powerball Tickets">
+<meta property="og:type" content="website">
+<!--<meta property="og:image" content="">-->
+<style>
+html, body {
+  height: 100%;
+  position: relative;
+}
+.loading {
+  display: none;
+}
+[ng-cloak] ~ .loading {
+  display: block;
+  left: 50%;
+  position: fixed;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+}
+.loading-dot {
+  -webkit-animation: loadingFade 3s infinite;
+  animation: loadingFade 3s infinite;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.17);
+  float: left;
+  font-family: monospace;
+  font-size: 5vw;
+  height: 8vw;
+  line-height: 8vw;
+  margin: 0 1vw;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.2), -1px -1px 1px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  width: 8vw;
+}
+.loading-dot:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+.loading-dot:nth-child(2) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+.loading-dot:nth-child(3) {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+.loading-dot:nth-child(4) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.loading-dot:nth-child(5) {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+.loading-dot:nth-child(6) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+.loading-dot:nth-child(7) {
+  background-color: #b71c1c;
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+@-webkit-keyframes loadingFade {
+  0% {opacity: 0;}
+  50% {opacity: 0.99;}
+  100% {opacity: 0;}
+}
+@keyframes loadingFade {
+    0% { background-color: transparent; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
+   50% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.17); }
+   76% { background-color: rgba(183, 28, 28, 0.46); }
+   80% { background-color: transparent; }
+  100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+<link rel="stylesheet prefetch" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css">
+<link rel="stylesheet" href="style.css">
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
+</head>
+<body>
+<div ng-controller="AppCtrl as ctrl" layout="column" flex layout-fill ng-cloak ng-app="NumbersCheckerApp">
+  <!--<header>-->
+    <md-toolbar md-medium-tall md-scroll-shrink>
+      <div class="md-toolbar-tools">
+        <h1 class="md-display-1">CheckNums</h1>
+        <!-- <span flex></span>
+        <md-menu md-position-mode="target-right target">
+            <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+              <svg class="md-menu-origin" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </md-button>
+            <md-menu-content width="4">
+              <md-menu-item>
+                <md-button>
+                    <div layout flex>
+                      <p flex>Instructions</p>
+                      <svg md-menu-align-target fill="#AAAAAA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
+                      </svg>
+                    </div>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.showDisclaimerDialog($event)">
+                    <div layout flex>
+                      <p flex>Disclaimer</p>
+                      <svg md-menu-align-target fill="#AAAAAA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>
+                      </svg>
+                    </div>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu> -->
+      </div>
+    </md-toolbar>
+  <!--</header>-->
+  <md-content flex role="main" md-theme="altTheme">
+    <div layout layout-margin layout-padding>Quickly and easily check multiple Powerball tickets against a single drawing.</div>
+    <div layout layout-align="start center">
+      <h2 class="heading md-title">Winning Numbers</h2>
+      <md-input-container flex="none" flex-offset="5">
+        <md-select ng-model="ctrl.selectedDrawingDate" placeholder="Drawing"
+                   md-on-close="ctrl.drawingSelection()">
+          <md-option value="custom">Custom…</md-option>
+          <md-option ng-if="ctrl.drawings.length" ng-value="draw.date" ng-repeat="draw in ctrl.drawings">{{::draw.date}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div layout flex layout-align="space-around center" class="draw-results" ng-if="ctrl.selectedDrawingDate && ctrl.selectedDrawingDate !== 'custom' && ctrl.draw.white.length">
+      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[0]}}</span>
+      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[1]}}</span>
+      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[2]}}</span>
+      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[3]}}</span>
+      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[4]}}</span>
+      <span class="ball md-whiteframe-1dp red">{{ctrl.draw.red}}</span>
+      <span class="multiplier md-whiteframe-1dp">{{ctrl.draw.multiplier}}x</span>
+    </div>
+    <div layout layout-wrap flex ng-if="ctrl.selectedDrawingDate && ctrl.selectedDrawingDate === 'custom'">
+      <md-input-container class="num-set" flex="none">
+        <label>White Balls (5)</label>
+        <md-select ng-model="ctrl.draw.white"
+                   md-on-close="ctrl.checkLength(draw)"
+                   data-md-container-class="num-set-container"
+                   multiple>
+          <md-select-header class="num-set-header" ng-class="{'has-five': ctrl.draw.white.length === 5}">
+            {{ctrl.draw.white.length ? ctrl.draw.white.sort().join(', ') : 'White Balls (5)'}}
+          </md-select-header>
+          <md-option value="01" ng-disabled="ctrl.disableOption(ctrl.draw.white, '01')">01</md-option>
+          <md-option value="02" ng-disabled="ctrl.disableOption(ctrl.draw.white, '02')">02</md-option>
+          <md-option value="03" ng-disabled="ctrl.disableOption(ctrl.draw.white, '03')">03</md-option>
+          <md-option value="04" ng-disabled="ctrl.disableOption(ctrl.draw.white, '04')">04</md-option>
+          <md-option value="05" ng-disabled="ctrl.disableOption(ctrl.draw.white, '05')">05</md-option>
+          <md-option value="06" ng-disabled="ctrl.disableOption(ctrl.draw.white, '06')">06</md-option>
+          <md-option value="07" ng-disabled="ctrl.disableOption(ctrl.draw.white, '07')">07</md-option>
+          <md-option value="08" ng-disabled="ctrl.disableOption(ctrl.draw.white, '08')">08</md-option>
+          <md-option value="09" ng-disabled="ctrl.disableOption(ctrl.draw.white, '09')">09</md-option>
+          <md-option value="10" ng-disabled="ctrl.disableOption(ctrl.draw.white, '10')">10</md-option>
+          <md-option value="11" ng-disabled="ctrl.disableOption(ctrl.draw.white, '11')">11</md-option>
+          <md-option value="12" ng-disabled="ctrl.disableOption(ctrl.draw.white, '12')">12</md-option>
+          <md-option value="13" ng-disabled="ctrl.disableOption(ctrl.draw.white, '13')">13</md-option>
+          <md-option value="14" ng-disabled="ctrl.disableOption(ctrl.draw.white, '14')">14</md-option>
+          <md-option value="15" ng-disabled="ctrl.disableOption(ctrl.draw.white, '15')">15</md-option>
+          <md-option value="16" ng-disabled="ctrl.disableOption(ctrl.draw.white, '16')">16</md-option>
+          <md-option value="17" ng-disabled="ctrl.disableOption(ctrl.draw.white, '17')">17</md-option>
+          <md-option value="18" ng-disabled="ctrl.disableOption(ctrl.draw.white, '18')">18</md-option>
+          <md-option value="19" ng-disabled="ctrl.disableOption(ctrl.draw.white, '19')">19</md-option>
+          <md-option value="20" ng-disabled="ctrl.disableOption(ctrl.draw.white, '20')">20</md-option>
+          <md-option value="21" ng-disabled="ctrl.disableOption(ctrl.draw.white, '21')">21</md-option>
+          <md-option value="22" ng-disabled="ctrl.disableOption(ctrl.draw.white, '22')">22</md-option>
+          <md-option value="23" ng-disabled="ctrl.disableOption(ctrl.draw.white, '23')">23</md-option>
+          <md-option value="24" ng-disabled="ctrl.disableOption(ctrl.draw.white, '24')">24</md-option>
+          <md-option value="25" ng-disabled="ctrl.disableOption(ctrl.draw.white, '25')">25</md-option>
+          <md-option value="26" ng-disabled="ctrl.disableOption(ctrl.draw.white, '26')">26</md-option>
+          <md-option value="27" ng-disabled="ctrl.disableOption(ctrl.draw.white, '27')">27</md-option>
+          <md-option value="28" ng-disabled="ctrl.disableOption(ctrl.draw.white, '28')">28</md-option>
+          <md-option value="29" ng-disabled="ctrl.disableOption(ctrl.draw.white, '29')">29</md-option>
+          <md-option value="30" ng-disabled="ctrl.disableOption(ctrl.draw.white, '30')">30</md-option>
+          <md-option value="31" ng-disabled="ctrl.disableOption(ctrl.draw.white, '31')">31</md-option>
+          <md-option value="32" ng-disabled="ctrl.disableOption(ctrl.draw.white, '32')">32</md-option>
+          <md-option value="33" ng-disabled="ctrl.disableOption(ctrl.draw.white, '33')">33</md-option>
+          <md-option value="34" ng-disabled="ctrl.disableOption(ctrl.draw.white, '34')">34</md-option>
+          <md-option value="35" ng-disabled="ctrl.disableOption(ctrl.draw.white, '35')">35</md-option>
+          <md-option value="36" ng-disabled="ctrl.disableOption(ctrl.draw.white, '36')">36</md-option>
+          <md-option value="37" ng-disabled="ctrl.disableOption(ctrl.draw.white, '37')">37</md-option>
+          <md-option value="38" ng-disabled="ctrl.disableOption(ctrl.draw.white, '38')">38</md-option>
+          <md-option value="39" ng-disabled="ctrl.disableOption(ctrl.draw.white, '39')">39</md-option>
+          <md-option value="40" ng-disabled="ctrl.disableOption(ctrl.draw.white, '40')">40</md-option>
+          <md-option value="41" ng-disabled="ctrl.disableOption(ctrl.draw.white, '41')">41</md-option>
+          <md-option value="42" ng-disabled="ctrl.disableOption(ctrl.draw.white, '42')">42</md-option>
+          <md-option value="43" ng-disabled="ctrl.disableOption(ctrl.draw.white, '43')">43</md-option>
+          <md-option value="44" ng-disabled="ctrl.disableOption(ctrl.draw.white, '44')">44</md-option>
+          <md-option value="45" ng-disabled="ctrl.disableOption(ctrl.draw.white, '45')">45</md-option>
+          <md-option value="46" ng-disabled="ctrl.disableOption(ctrl.draw.white, '46')">46</md-option>
+          <md-option value="47" ng-disabled="ctrl.disableOption(ctrl.draw.white, '47')">47</md-option>
+          <md-option value="48" ng-disabled="ctrl.disableOption(ctrl.draw.white, '48')">48</md-option>
+          <md-option value="49" ng-disabled="ctrl.disableOption(ctrl.draw.white, '49')">49</md-option>
+          <md-option value="50" ng-disabled="ctrl.disableOption(ctrl.draw.white, '50')">50</md-option>
+          <md-option value="51" ng-disabled="ctrl.disableOption(ctrl.draw.white, '51')">51</md-option>
+          <md-option value="52" ng-disabled="ctrl.disableOption(ctrl.draw.white, '52')">52</md-option>
+          <md-option value="53" ng-disabled="ctrl.disableOption(ctrl.draw.white, '53')">53</md-option>
+          <md-option value="54" ng-disabled="ctrl.disableOption(ctrl.draw.white, '54')">54</md-option>
+          <md-option value="55" ng-disabled="ctrl.disableOption(ctrl.draw.white, '55')">55</md-option>
+          <md-option value="56" ng-disabled="ctrl.disableOption(ctrl.draw.white, '56')">56</md-option>
+          <md-option value="57" ng-disabled="ctrl.disableOption(ctrl.draw.white, '57')">57</md-option>
+          <md-option value="58" ng-disabled="ctrl.disableOption(ctrl.draw.white, '58')">58</md-option>
+          <md-option value="59" ng-disabled="ctrl.disableOption(ctrl.draw.white, '59')">59</md-option>
+          <md-option value="60" ng-disabled="ctrl.disableOption(ctrl.draw.white, '60')">60</md-option>
+          <md-option value="61" ng-disabled="ctrl.disableOption(ctrl.draw.white, '61')">61</md-option>
+          <md-option value="62" ng-disabled="ctrl.disableOption(ctrl.draw.white, '62')">62</md-option>
+          <md-option value="63" ng-disabled="ctrl.disableOption(ctrl.draw.white, '63')">63</md-option>
+          <md-option value="64" ng-disabled="ctrl.disableOption(ctrl.draw.white, '64')">64</md-option>
+          <md-option value="65" ng-disabled="ctrl.disableOption(ctrl.draw.white, '65')">65</md-option>
+          <md-option value="66" ng-disabled="ctrl.disableOption(ctrl.draw.white, '66')">66</md-option>
+          <md-option value="67" ng-disabled="ctrl.disableOption(ctrl.draw.white, '67')">67</md-option>
+          <md-option value="68" ng-disabled="ctrl.disableOption(ctrl.draw.white, '68')">68</md-option>
+          <md-option value="69" ng-disabled="ctrl.disableOption(ctrl.draw.white, '69')">69</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="none" class="select-red">
+        <label>Red</label>
+        <md-select ng-model="ctrl.draw.red" placeholder="Red">
+          <md-option value="01">01</md-option>
+          <md-option value="02">02</md-option>
+          <md-option value="03">03</md-option>
+          <md-option value="04">04</md-option>
+          <md-option value="05">05</md-option>
+          <md-option value="06">06</md-option>
+          <md-option value="07">07</md-option>
+          <md-option value="08">08</md-option>
+          <md-option value="09">09</md-option>
+          <md-option value="10">10</md-option>
+          <md-option value="11">11</md-option>
+          <md-option value="12">12</md-option>
+          <md-option value="13">13</md-option>
+          <md-option value="14">14</md-option>
+          <md-option value="15">15</md-option>
+          <md-option value="16">16</md-option>
+          <md-option value="17">17</md-option>
+          <md-option value="18">18</md-option>
+          <md-option value="19">19</md-option>
+          <md-option value="20">20</md-option>
+          <md-option value="21">21</md-option>
+          <md-option value="22">22</md-option>
+          <md-option value="23">23</md-option>
+          <md-option value="24">24</md-option>
+          <md-option value="25">25</md-option>
+          <md-option value="26">26</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <label style="overflow: visible">Power Play</label>
+        <md-select ng-model="ctrl.draw.multiplier" class="pp-select" placeholder="Power Play">
+          <md-option value="2">2x</md-option>
+          <md-option value="3">3x</md-option>
+          <md-option value="4">4x</md-option>
+          <md-option value="5">5x</md-option>
+          <md-option value="10">10x</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <section>
+      <md-subheader>
+       <h2 class="md-title md-primary">Tickets</h2>
+      </md-subheader>
+      <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
+      <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card)}">
+        <div class="md-title score" layout="row" layout-align="end end">
+          <span ng-show="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
+          <span ng-show="card.jackpot">Jackpot</span>
+        </div>
+        <md-card-content>
+          <div class="nums-wrap" layout layout-align="space-between center">
+            <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[0]) > -1}">{{card.white[0]}}</div></div>
+            <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[1]) > -1}">{{card.white[1]}}</div></div>
+            <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[2]) > -1}">{{card.white[2]}}</div></div>
+            <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[3]) > -1}">{{card.white[3]}}</div></div>
+            <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[4]) > -1}">{{card.white[4]}}</div></div>
+            <div class="ball md-whiteframe-1dp red" flex-offset="5"><div ng-class="{'match': card.matchedRed}">{{card.red}}</div></div>
+          </div>
+          <div layout flex="none" class="pp" ng-show="card.multiplier"><span>Power</span> Play</div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
+            <!--<span ng-if="$first">Edit</span>-->
+            <svg fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </md-button>
+          <md-button class="md-icon-button" ng-click="ctrl.deleteCard($event, $index)" aria-label="Delete">
+            <svg fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </section>
+    <footer class="footer-interior" ng-class="{'extra-margin': !ctrl.cards.length}">
+      <div layout="row" layout-align="center center" class="btn-add">
+        <md-button class="md-primary md-raised" ng-click="ctrl.addCard()" ng-class="{'glowing': !ctrl.cards.length}">
+          Add Ticket
+          <md-icon>
+            <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/>
+            </svg>
+          </md-icon>
+        </md-button>
+      </div>
+      <div layout="row" layout-align="center center">
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
+      </div>
+      <div layout="row" layout-align="center center" ng-show="ctrl.cards.length > 1">
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.clearTickets()">Clear All Tickets</md-button>
+      </div>
+    </footer>
+    <div style="visibility: hidden">
+      <div class="md-dialog-container" id="disclaimerDialog">
+        <md-dialog layout-padding>
+          <h2 class="md-title">Disclaimer</h2>
+          <div style="margin: 0">This is an <strong><em>unofficial</em></strong> tool to check one or more Powerball tickets for a given drawing. It is <strong>not affiliated</strong>
+            with the Multi-State Lottery Association or any other organization. Be sure to double-check all tickets using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</div>
+          <div layout layout-align="end end">
+            <span flex></span>
+            <md-button ng-click="ctrl.closeDialog()" class="md-raised md-primary" aria-label="OK">OK</md-button>
+          </div>
+        </md-dialog>
+      </div>
+    </div>
+    <div style="visibility: hidden">
+      <div class="md-dialog-container" id="instructionsDialog">
+        <md-dialog layout-padding>
+          <h2 class="md-title">Instructions</h2>
+          <div style="margin: 0">
+            <p style="margin-top: 0">Quickly check Powerball tickets for a single drawing. Click the Add Ticket button and:</p>
+            <ol>
+              <li>Select 5 white balls and 1 red Powerball</li>
+              <li>Click "Apply" to add your ticket and check it against the selected drawing at the top of the screen.</li>
+              <li>Look at the top right corner of each ticket to see if you've won.</li>
+            </ol>
+            <p>Select a drawing at the top of the screen to check all tickets. Select "Custom…" to enter a set of results - handy if you're watching a live drawing.</p>
+            <p>Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a> for complete rules.</p>
+          </div>
+          <div layout layout-align="end end">
+            <span flex></span>
+            <md-button ng-click="ctrl.closeDialog()" class="md-raised md-primary" aria-label="OK">OK</md-button>
+          </div>
+        </md-dialog>
+      </div>
+    </div>
+  </md-content>
+  <!--<footer class="footer-exterior" flex="none" layout layout-align="center center">
+    <div class="ad-wrapper"></div>
+  </footer>-->
+</div>
+<div class="loading">
+  <span class="loading-dot">L</span>
+  <span class="loading-dot">o</span>
+  <span class="loading-dot">a</span>
+  <span class="loading-dot">d</span>
+  <span class="loading-dot">i</span>
+  <span class="loading-dot">n</span>
+  <span class="loading-dot">g</span>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+.md-button.md-fab.md-fab-bottom-right {
+  bottom: 72px; /* accommodate ad */
+}
+
+.heading .md-subheader-inner {
+  padding-left: 0;
+}
+
+.heading,
+.md-subheader + div {
+  margin-left: 16px;
+}
+
+h2.md-title {
+  color: rgba(0,0,0,0.87);
+}
+
+.ball {
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 10px;
+}
+.red {
+  background-color: #d50000;
+  color: #fff;
+}
+.match {
+  position: relative;
+}
+.match:after {
+  border-bottom: 1px solid;
+  bottom: -2px;
+  content: "";
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+.multiplier {
+  padding: 2px 4px;
+}
+
+.draw-results {
+  margin-bottom: 1em;
+}
+
+/* -------- */
+.num-set {
+  width: 165px;
+}
+
+.num-set-container md-option[disabled] .md-icon {
+  border-color: rgba(189, 189, 189, 0.87);
+}
+
+.num-set-header {
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  padding-left: 10.667px;
+  top: 0;
+  width: 94%;
+  z-index: 1;
+}
+
+.num-set-header.has-five {
+  color: #1B5E20; /* green 900 */
+}
+
+
+/* -------- */
+md-card {
+  max-width: 600px;
+}
+
+.nums-wrap {
+  max-width: 266px;
+}
+
+.b {
+  margin-right: 4px;
+  min-width: 30px;
+}
+.b + .b {
+  text-align: center;
+}
+
+/* .b.r {} */
+
+.b div {
+  border-bottom: 2px solid transparent;
+}
+
+.b .match {
+  border-bottom-color: #2E7D32;
+}
+
+md-card md-card-content {
+  padding-bottom: 0;
+}
+
+md-select ~ .errors {
+  color: rgb(221,44,0);
+  font-size: 12px;
+  line-height: 14px;
+  opacity: 0;
+  overflow: hidden;
+  padding-top: 5px;
+  -webkit-transition: all .3s cubic-bezier(.55,0,.55,.2);
+  transition: all .3s cubic-bezier(.55,0,.55,.2);
+}
+
+md-select.ng-invalid.ng-touched ~ .errors,
+md-select.ng-invalid-required.ng-touched ~ .errors {
+  opacity: 1;
+}
+
+.pp {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Roboto, sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
+.pp span {
+  background-color: rgba(0, 0, 0, 0.54);
+  color: #fff;
+  margin-right: 2px;
+  padding-left: 2px;
+  padding-right: 1px;
+}
+
+.pp,
+.pp span {
+  -webkit-transition: color, background-color .3s cubic-bezier(.55,0,.55,.2);
+  transition: color, background-color .3s cubic-bezier(.55,0,.55,.2);
+}
+
+.use-multiplier[aria-checked="true"] .pp {
+  color: #000;
+}
+
+.use-multiplier[aria-checked="true"] .pp span {
+  background-color: #000;
+}
+
+md-switch .pp span {
+  margin-right: -1px;
+}
+
+md-card .md-actions,
+md-card md-card-actions {
+  margin-top: 0;
+}
+
+md-dialog-actions {
+  padding-left: 0;
+}
+
+.score {
+  color: #b71c1c; /* #aaa; */
+  min-height: 40px;
+  text-align: right;
+}
+.score span {
+  border-radius: 0 0 0 2px;
+  padding: 8px;
+}
+.score .success {
+  background-color: #2e7d32;
+  color: #fff;
+}
+md-card.success {
+  border: 1px solid #2e7d32;
+}
+
+md-card.jackpot {
+  position: relative;
+}
+
+md-card.jackpot .score {
+  height: 108px;
+  overflow: hidden;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 108px;
+}
+
+md-card.jackpot .score span {
+  background-color: #1B5E20;
+  background-image: linear-gradient(#2E7D32 -50%, #43a047 50%, #43a047 0%, #2E7D32 150%);
+  box-shadow: -3px 5px 6px -5px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  left: 32px;
+  letter-spacing: 0.5px;
+  line-height: 18px;
+  min-height: 18px;
+  padding: 7px 0;
+  position: relative;
+  text-align: center;
+  text-indent: -8px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  top: -65px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 150px;
+}
+
+md-card.jackpot .score span:before,
+md-card.jackpot .score span:after {
+  border: 4px solid transparent;
+  border-top-color: #2E7D32;
+  bottom: -8px;
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+md-card.jackpot .score span:before {
+  left: 0;
+  border-left-color: #2E7D32;
+}
+
+md-card.jackpot .score span:after {
+  right: 7px;
+  border-right-color: #2E7D32;
+}
+
+md-card-actions svg {
+  fill: rgba(0, 0, 0, 0.38);
+}
+
+md-card-actions svg:hover {
+  fill: rgba(0, 0, 0, 0.54);
+}
+
+.footer-interior {
+  margin: 16px 0;
+}
+
+.btn-add .md-button {
+  padding-left: 10px;
+}
+
+.btn-add md-icon {
+  transform: translateY(-1px);
+}
+
+.footer-interior.extra-margin {
+    margin-top: 42px;
+}
+
+.footer-interior.extra-margin .btn-add {
+  margin-bottom: 28px;
+}
+
+.glowing {
+    -webkit-animation: pulse 2.5s infinite;
+    animation: pulse 2.5s infinite;
+}
+@-webkit-keyframes pulse {
+    from { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
+     50% { box-shadow: 0 0 16px rgba(103, 58, 183, .6); }
+      to { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
+}
+
+@keyframes pulse {
+    from { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
+     50% { box-shadow: 0 0 16px rgba(103, 58, 183, .6); }
+      to { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
+}
+
+.footer-exterior {
+  padding: 0 16px;
+  text-align: center;
+}
+
+.ad-wrapper {
+  background-color: #aaa;
+  height: 50px;
+  position: relative;
+  width: 320px;
+}
+
+.ad-wrapper:before {
+  bottom: 0;
+  color: rgba(0, 0, 0, 0.17);
+  content: "AD";
+  height: 48px;
+  left: -14px;
+  line-height: 14px;
+  position: absolute;
+  width: 4px;
+  word-wrap: break-word;
+}
+
+/*md-content {
+  box-shadow: inset 0 -6px 6px -6px rgba(0, 0, 0, 0.38);
+}*/
+
+@media (min-width: 426px) {
+  md-content {
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 960px) {
+  md-toast.md-top {
+      top: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  div[ng-app] {
+    margin: 0 auto;
+    width: 1024px;
+  }
+}
