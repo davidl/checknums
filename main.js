@@ -254,7 +254,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   }
 
   ctrl.deletedCardSet = null;
-  ctrl.clearTickets = function () {
+  ctrl.deleteAllTickets = function () {
     ctrl.deletedCardSet = angular.copy(ctrl.cards);
     ctrl.cards = [];
     var toast = $mdToast.simple()
