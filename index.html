@@ -1,15 +1,15 @@
-
 <!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
 <meta charset="utf-8">
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CheckNums: Check Your Powerball Tickets</title>
 <meta property="twitter:card" content="summary">
 <meta property="twitter:site" content="@checknums">
 <meta property="og:url" content="https://checknums.com">
-<meta property="og:description" content="Quickly and easily check multiple Powerball tickets.">
-<meta property="og:title" content="CheckNums: Check Powerball Tickets">
+<meta property="og:description" content="Check your Powerball tickets quickly and easily.">
+<meta property="og:title" content="CheckNums: Check Your Powerball Tickets">
 <meta property="og:type" content="website">
 <!--<meta property="og:image" content="">-->
 <style>
@@ -88,54 +88,18 @@ html, body {
 }
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-<link rel="stylesheet prefetch" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 <link rel="stylesheet" href="style.css">
-<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
 </head>
 <body>
 <div ng-controller="AppCtrl as ctrl" layout="column" flex layout-fill ng-cloak ng-app="NumbersCheckerApp">
-  <!--<header>-->
-    <md-toolbar md-medium-tall md-scroll-shrink>
-      <div class="md-toolbar-tools">
-        <h1 class="md-display-1">CheckNums</h1>
-        <!-- <span flex></span>
-        <md-menu md-position-mode="target-right target">
-            <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <svg class="md-menu-origin" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-              </svg>
-            </md-button>
-            <md-menu-content width="4">
-              <md-menu-item>
-                <md-button>
-                    <div layout flex>
-                      <p flex>Instructions</p>
-                      <svg md-menu-align-target fill="#AAAAAA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 0h24v24H0z" fill="none"/>
-                          <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
-                      </svg>
-                    </div>
-                </md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="ctrl.showDisclaimerDialog($event)">
-                    <div layout flex>
-                      <p flex>Disclaimer</p>
-                      <svg md-menu-align-target fill="#AAAAAA" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 0h24v24H0z" fill="none"/>
-                          <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>
-                      </svg>
-                    </div>
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu> -->
-      </div>
-    </md-toolbar>
-  <!--</header>-->
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h1 class="md-display-1">CheckNums</h1>
+    </div>
+  </md-toolbar>
   <md-content flex role="main" md-theme="altTheme">
-    <div layout layout-margin layout-padding>Quickly and easily check multiple Powerball tickets against a single drawing.</div>
+    <div layout layout-margin layout-padding>Check multiple Powerball tickets quickly and easily.</div>
     <div layout layout-align="start center">
       <h2 class="heading md-title">Winning Numbers</h2>
       <md-input-container flex="none" flex-offset="5">
@@ -280,7 +244,7 @@ html, body {
     </div>
     <section>
       <md-subheader>
-       <h2 class="md-title md-primary">Tickets</h2>
+       <h2 class="md-title md-primary">Your Tickets</h2>
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card)}">
@@ -385,11 +349,11 @@ html, body {
   <span class="loading-dot">n</span>
   <span class="loading-dot">g</span>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
