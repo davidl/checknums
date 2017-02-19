@@ -3,9 +3,8 @@ var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMe
 
 numbersCheckerApp.factory('winnumsService', function ($http) {
   var promise;
-  // var url = '/winnums';
-  var url = 'https://calculating-pocket.gomix.me/data';
-  // var url = 'https://rebel-yak.gomix.me/drawings';
+  // var url = 'https://calculating-pocket.gomix.me/data';
+  var url = 'https://rebel-yak.gomix.me/drawings';
   var winnumsService = {
     async: function() {
       if ( !promise ) {
