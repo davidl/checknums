@@ -287,7 +287,7 @@ html, body {
     <footer class="footer-interior" ng-class="{'extra-margin': !ctrl.cards.length}">
       <div layout="row" layout-align="center center" class="btn-add">
         <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()" ng-class="{'glowing': !ctrl.cards.length}">
-          Add Ticket
+          Add Your Ticket
           <md-icon>
             <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none"/>
@@ -296,12 +296,12 @@ html, body {
           </md-icon>
         </md-button>
       </div>
-      <div layout="row" layout-align="center center">
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
+      <div layout="row" layout-align="center center" ng-show="ctrl.cards.length">
+        <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
-      <div layout="row" layout-align="center center" ng-show="ctrl.cards.length > 1">
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
+      <div layout="row" layout-align="center center">
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>•
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
       </div>
     </footer>
     <div style="visibility: hidden">
