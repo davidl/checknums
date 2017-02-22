@@ -182,48 +182,49 @@ numbersCheckerApp.config(function($mdThemingProvider) {
                   '<span flex></span>' +
                   '<md-button class="md-icon-button" ng-click="cancelDialog()">' +
                     '<md-icon aria-label="Close dialog">' +
-                    '<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">' +
-                  '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>' +
-                  '<path d="M0 0h24v24H0z" fill="none"/>' +
-              '</svg></md-icon>' +
+                      '<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>' +
+                        '<path d="M0 0h24v24H0z" fill="none"/>' +
+                      '</svg>' + 
+                    '</md-icon>' +
                   '</md-button>' +
                 '</div>' +
               '</md-toolbar>' +
               '<md-dialog-content flex layout-padding>' +
                 '<form name="ticketForm">'+
-                '<div>Pick 5 white balls and 1 red Powerball:</div>' +
-                '<div flex layout layout-align="start start" layout-wrap>' +
-                  '<md-input-container flex="none" class="num-set">' +
-                    '<label>White Balls</label>' +
-                    '<md-select ng-model="ctrl.cardCopy.white" name="white" ' +
-                      'placeholder="White Balls" ' +
-                      'md-on-close="ctrl.checkLength()"' +
-                      'md-container-class="num-set-container" ' +
-                      'multiple>' +
-                      '<md-select-header class="num-set-header" ng-class="{\'has-five\': ctrl.cardCopy.white.length === 5}">' +
-                        '{{ctrl.cardCopy.white.length ? ctrl.cardCopy.white.sort().join(\', \') : \'White (5)\'}}' +
-                      '</md-select-header>' +
-                      '<md-option ng-repeat="w in ctrl.wList" value="{{::w}}" ng-disabled="ctrl.cardCopy && ctrl.cardCopy.white && ctrl.disableOption(ctrl.cardCopy.white, \'{{::w}}\')">{{::w}}</md-option>' +
-                    '</md-select>' +
-                    '<div class="errors">Please pick {{5 - ctrl.cardCopy.white.length}} more</div>' +
-                  '</md-input-container>' +
-                  '<md-input-container flex="none" flex-offset="10" class="select-red">' +
-                    '<label>Red</label>' +
-                    '<md-select ng-model="ctrl.cardCopy.red" name="red" placeholder="Red" md-no-asterisk required>' +
-                      '<md-option ng-repeat="r in ctrl.rList" value="{{::r}}">{{::r}}</md-option>' +
-                    '</md-select>' +
-                    '<div class="errors">Required</div>' +
-                  '</md-input-container>' +
-                '</div>' +
-                '<div layout>' +
-                  '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none"><span class="pp"><span>Power</span> Play</span></md-switch>' +
-                '</div>' +
+                  '<div style="margin: 16px 0">Pick 5 white balls and 1 red Powerball:</div>' +
+                  '<div flex layout layout-align="start start" layout-wrap>' +
+                    '<md-input-container flex="none" class="num-set">' +
+                      '<label>White Balls</label>' +
+                      '<md-select ng-model="ctrl.cardCopy.white" name="white" ' +
+                        'placeholder="White Balls" ' +
+                        'md-on-close="ctrl.checkLength()"' +
+                        'md-container-class="num-set-container" ' +
+                        'multiple>' +
+                        '<md-select-header class="num-set-header" ng-class="{\'has-five\': ctrl.cardCopy.white.length === 5}">' +
+                          '{{ctrl.cardCopy.white.length ? ctrl.cardCopy.white.sort().join(\', \') : \'White (5)\'}}' +
+                        '</md-select-header>' +
+                        '<md-option ng-repeat="w in ctrl.wList" value="{{::w}}" ng-disabled="ctrl.cardCopy && ctrl.cardCopy.white && ctrl.disableOption(ctrl.cardCopy.white, \'{{::w}}\')">{{::w}}</md-option>' +
+                      '</md-select>' +
+                      '<div class="errors">Please pick {{5 - ctrl.cardCopy.white.length}} more</div>' +
+                    '</md-input-container>' +
+                    '<md-input-container flex="none" flex-offset="10" class="select-red">' +
+                      '<label>Red</label>' +
+                      '<md-select ng-model="ctrl.cardCopy.red" name="red" placeholder="Red" md-no-asterisk required>' +
+                        '<md-option ng-repeat="r in ctrl.rList" value="{{::r}}">{{::r}}</md-option>' +
+                      '</md-select>' +
+                      '<div class="errors">Required</div>' +
+                    '</md-input-container>' +
+                  '</div>' +
+                  '<div layout>' +
+                    '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none"><span class="pp"><span>Power</span> Play</span></md-switch>' +
+                  '</div>' +
+                  '<div layout="row" layout-align="space-between end">' +
+                    '<md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.cardCopy)" class="md-primary md-raised" flex="50" flex-order="2">Check Ticket</md-button>' +
+                    '<md-button ng-click="cancelDialog()" class="btn-cancel">Cancel</md-button>' +
+                  '</div>' +
                 '</form>' +
               '</md-dialog-content>' +
-              '<md-dialog-actions layout="row" layout-align="space-between end">' +
-                '<md-button ng-click="cancelDialog()">Cancel</md-button>' +
-                '<md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.cardCopy)" class="md-primary md-raised" flex="50">Check Ticket</md-button>' +
-              '</md-dialog-actions>' +
             '</md-dialog>',
           parent: angular.element(document.body),
           controller: function DialogController($scope, $mdDialog) {
