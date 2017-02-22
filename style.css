@@ -4,6 +4,12 @@ h2 {
   font-weight: 700;
 }
 
+/*
+md-content {
+  box-shadow: inset 0px -6px 0px 0px rgb(96, 125, 139);
+}
+*/
+
 .heading .md-subheader-inner {
   padding-left: 0;
 }
@@ -145,6 +151,10 @@ md-select.ng-invalid-required.ng-touched ~ .errors {
   transition: color, background-color .3s cubic-bezier(.55,0,.55,.2);
 }
 
+.use-multiplier {
+  margin-top: 0;
+}
+
 .use-multiplier[aria-checked="true"] .pp {
   color: #000;
 }
@@ -162,8 +172,8 @@ md-card md-card-actions {
   margin-top: 0;
 }
 
-md-dialog-actions {
-  padding-left: 0;
+.btn-cancel {
+  color: rgba(0, 0, 0, 0.38);
 }
 
 .score {
@@ -247,7 +257,7 @@ md-card-actions svg:hover {
 }
 
 .footer-interior {
-  margin: 16px 0;
+  margin: 16px 0 32px;
 }
 
 .btn-add .md-button {
