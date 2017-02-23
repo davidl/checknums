@@ -320,9 +320,9 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       var key = '';
       var val = '';
       if (len) {
-        for (var i = 0; i <= len - 1; i++) {
+        for (var i = 0; i < len; i++) {
           key = localStorage.key(i);
-          if (key.indexOf('cn-') === 0) {
+          if (key && key.indexOf('cn-') === 0) {
             localStorage.removeItem(key);
           }
         }
