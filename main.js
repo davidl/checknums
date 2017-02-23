@@ -309,7 +309,19 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.deleteAllTickets = function () {
     ctrl.deletedCardSet = angular.copy(ctrl.cards);
     ctrl.cards = [];
-    if (ctrl.hasLocalStorage) localStorage.clear();
+    if (ctrl.hasLocalStorage) {
+      var len = localStorage.length;
+      var key = '';
+      var val = '';
+      if (len) {
+        for (var i = 0; i <= len - 1; i++) {
+          key = localStorage.key(i);
+          if (key.indexOf('cn-') === 0) {
+            localStorage.removeItem(key);
+          }
+        }
+      }
+    };
     var toast = $mdToast.simple()
       .textContent('All Tickets Deleted')
       .action('UNDO')
@@ -330,6 +342,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.saveTicket = function (t) {
     var key = t.savedKey || 'cn-' + Date.now();
     t.savedKey = key;
+    t.saved = true;
     localStorage.setItem(key, JSON.stringify(t));
   };
   
