@@ -60,7 +60,22 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     red: '',
     white: []
   };
-
+  
+  function storageAvailable(type) {
+    try {
+      var storage = window[type],
+        x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+  
+  ctrl.hasLocalStorage = storageAvailable('localStorage');
+  
   function baseDraw () {
     return {
       multiplier: '',
@@ -79,6 +94,8 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       matchedW: [],
       multiplier: false,
       red: '',
+      saved: false,
+      savedKey: null,
       score: null,
       white: []
     }
@@ -101,15 +118,32 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       ctrl.draw.white = ctrl.selectedDrawing.white;
       ctrl.draw.red = ctrl.selectedDrawing.red;
       ctrl.draw.multiplier = ctrl.selectedDrawing.multiplier;
+      if (ctrl.cards.length) {
+        ctrl.checkNums();
+      }
     }, function (error) {
       ctrl.selectedDrawingDate = 'custom';
     });
   };
 
   function initialize () {
-    ctrl.getDrawings();
-    ctrl.draw = baseDraw();
     ctrl.cards = [];
+    ctrl.draw = baseDraw();
+    if (ctrl.hasLocalStorage) {
+      var len = localStorage.length;
+      var key = '';
+      var val = '';
+      if (len) {
+        for (var i = 0; i <= len - 1; i++) {
+          key = localStorage.key(i);
+          if (key.indexOf('cn-') === 0) {
+            val = JSON.parse(localStorage.getItem(key));
+            ctrl.cards.push(val);
+          }
+        }
+      }
+    }
+    ctrl.getDrawings();
   }
   initialize();
 
@@ -220,7 +254,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
                     '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none"><span class="pp"><span>Power</span> Play</span></md-switch>' +
                   '</div>' +
                   '<div layout="row" layout-align="space-between end">' +
-                    '<md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.cardCopy)" class="md-primary md-raised" flex="50" flex-order="2">Check Ticket</md-button>' +
+                    '<div flex="50" flex-order="2"><md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.cardCopy)" class="md-primary md-raised" style="width: 100%">Check Ticket</md-button></div>' +
                     '<md-button ng-click="cancelDialog()" class="btn-cancel">Cancel</md-button>' +
                   '</div>' +
                 '</form>' +
@@ -229,11 +263,11 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           parent: angular.element(document.body),
           controller: function DialogController($scope, $mdDialog) {
             $scope.closeDialog = function () {
-              if (true) { // TODO: check for complete ticket
-                ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
-                ctrl.checkNums();
-              }
-              // console.log('card', ctrl.cards[ctrl.editCardIndex]);
+              // ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
+              // ctrl.checkNums();
+              ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
+              ctrl.checkNums();
+              if (ctrl.cards[ctrl.editCardIndex].saved) ctrl.saveTicket(ctrl.cards[ctrl.editCardIndex]);
               $mdDialog.hide();
             };
             $scope.cancelDialog = function () {
@@ -275,6 +309,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.deleteAllTickets = function () {
     ctrl.deletedCardSet = angular.copy(ctrl.cards);
     ctrl.cards = [];
+    if (ctrl.hasLocalStorage) localStorage.clear();
     var toast = $mdToast.simple()
       .textContent('All Tickets Deleted')
       .action('UNDO')
@@ -284,9 +319,28 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     $mdToast.show(toast).then(function(response) {
       if (response == 'ok') {
         ctrl.cards = angular.copy(ctrl.deletedCardSet);
+        angular.forEach(ctrl.cards, function (value, key) {
+          if (value.saved) ctrl.saveTicket(ctrl.cards[key]);
+        });
         ctrl.deletedCardSet = null;
       }
     });
+  };
+  
+  ctrl.saveTicket = function (t) {
+    var key = t.savedKey || 'cn-' + Date.now();
+    t.savedKey = key;
+    localStorage.setItem(key, JSON.stringify(t));
+  };
+  
+  ctrl.toggleSaveTicket = function ($index) {
+    var t = ctrl.cards[$index];
+    if (t.saved && t.savedKey) {
+      localStorage.removeItem(t.savedKey);
+      t.saved = false;
+    } else {
+      ctrl.saveTicket(t);
+    }
   };
 
   ctrl.showDisclaimerDialog = function(ev) {

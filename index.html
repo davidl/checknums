@@ -251,7 +251,22 @@ html, body {
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card)}">
-        <div class="md-title score" layout="row" layout-align="end end">
+        <div class="md-title score" layout="row" layout-align="space-between end">
+          <md-button ng-click="ctrl.toggleSaveTicket($index)" ng-if="ctrl.hasLocalStorage" aria-label="Save Ticket Toggle" class="md-icon-button">
+            <div ng-if="!card.saved">
+              <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </div>
+            <div ng-if="card.saved">
+              <svg class="saved" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </div>
+          </md-button>
           <span ng-show="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
           <span ng-show="card.jackpot">Jackpot</span>
         </div>
@@ -280,7 +295,7 @@ html, body {
               <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
             </svg>
-          </md-button>
+        </md-button>
         </md-card-actions>
       </md-card>
     </section>
