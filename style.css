@@ -248,12 +248,17 @@ md-card.jackpot .score span:after {
   border-right-color: #2E7D32;
 }
 
-md-card-actions svg {
+.md-icon-button svg {
   fill: rgba(0, 0, 0, 0.38);
 }
 
-md-card-actions svg:hover {
+.md-icon-button svg:hover {
   fill: rgba(0, 0, 0, 0.54);
+}
+
+.md-icon-button svg.saved,
+.md-icon-button svg.saved:hover {
+  fill: #00aeef;
 }
 
 .footer-interior {
