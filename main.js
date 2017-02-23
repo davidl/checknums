@@ -284,6 +284,9 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.deletedCard = null;
   ctrl.deleteCard = function (i, noToast) {
     ctrl.deletedCard = ctrl.cards.splice(i, 1)[0];
+    if (ctrl.deletedCard.saved && ctrl.deletedCard.savedKey) {
+      localStorage.removeItem(ctrl.deletedCard.savedKey);
+    }
     if (!noToast) {
       showDeleteCardToast(i);
     }
@@ -300,6 +303,9 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     $mdToast.show(toast).then(function(response) {
       if (response == 'ok') {
         ctrl.cards.splice(i, 0, ctrl.deletedCard);
+        if (ctrl.deletedCard.saved && ctrl.deletedCard.savedKey) {
+          ctrl.saveTicket(ctrl.deletedCard);
+        }
         ctrl.deletedCard = null;
       }
     });
