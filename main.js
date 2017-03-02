@@ -33,6 +33,7 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
             }
             obj[key].date = prefix + value.date;
           });
+          promise = null;
           return response.data;
        });
       }
@@ -47,12 +48,12 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey');
   $mdThemingProvider.theme('altTheme')
-    .primaryPalette('deep-purple');
+    .primaryPalette('light-blue');
 })
 .controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, winnumsService) {
   var ctrl = this;
   ctrl.deletedTicket = null;
-  ctrl.drawings = null;
+  ctrl.drawings = [];
   ctrl.selectedDrawing = null;
   ctrl.selectedDrawingDate = null;
   ctrl.draw = {
@@ -108,21 +109,45 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     ctrl.addEditLabel = 'Add';
     ctrl.editCard(null, ctrl.cards.length - 1);
   };
+  
+  ctrl.gettingDrawings = false;
 
   ctrl.getDrawings = function () {
+    ctrl.gettingDrawings = true;
     winnumsService.async().then(function (data) {
-      ctrl.drawings = data;
-      ctrl.selectedDrawing = ctrl.drawings[0];
-      ctrl.selectedDrawingDate = ctrl.selectedDrawing.date;
-      // Winning numbers:
-      ctrl.draw.white = ctrl.selectedDrawing.white;
-      ctrl.draw.red = ctrl.selectedDrawing.red;
-      ctrl.draw.multiplier = ctrl.selectedDrawing.multiplier;
-      if (ctrl.cards.length) {
-        ctrl.checkNums();
+      // Check for first call or if the drawings are not updated:
+      var drawingsUpdated = ctrl.drawings.length ? data[0].date !== ctrl.drawings[0].date : false;
+      if (!ctrl.drawings.length || drawingsUpdated) {
+        ctrl.drawings = data;
+        ctrl.selectedDrawing = ctrl.drawings[0];
+        ctrl.selectedDrawingDate = ctrl.selectedDrawing.date;
+        // Winning numbers:
+        ctrl.draw.white = ctrl.selectedDrawing.white;
+        ctrl.draw.red = ctrl.selectedDrawing.red;
+        ctrl.draw.multiplier = ctrl.selectedDrawing.multiplier;
+        if (ctrl.cards.length) {
+          ctrl.checkNums();
+        }
+        if (drawingsUpdated) {
+          $mdToast.show(
+            $mdToast.simple()
+              .textContent('Results updated')
+              .position('top right')
+              .hideDelay(3000)
+          );
+        }
+      } else {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('No new results')
+            .position('top right')
+            .hideDelay(3000)
+        );
       }
+      ctrl.gettingDrawings = false;
     }, function (error) {
       ctrl.selectedDrawingDate = 'custom';
+      ctrl.gettingDrawings = false;
     });
   };
 
@@ -273,7 +298,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
             $scope.cancelDialog = function () {
               $mdDialog.hide();
               if (ctrl.addEditLabel === 'Add') {
-                ctrl.deleteCard(ctrl.cards.length - 1, true);
+                ctrl.deleteCard(null, ctrl.cards.length - 1, true);
               }
               ctrl.cardCopy = null;
             };
@@ -282,8 +307,8 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   };
 
   ctrl.deletedCard = null;
-  ctrl.deleteCard = function (i, noToast) {
-    ctrl.deletedCard = ctrl.cards.splice(i, 1)[0];
+  ctrl.deleteCard = function ($event, index, noToast) {
+    ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
     if (ctrl.deletedCard.saved && ctrl.deletedCard.savedKey) {
       localStorage.removeItem(ctrl.deletedCard.savedKey);
     }
@@ -298,7 +323,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       .action('UNDO')
       .highlightAction(true)
       .position('top right')
-      .hideDelay(0);
+      .hideDelay(3000);
 
     $mdToast.show(toast).then(function(response) {
       if (response == 'ok') {
@@ -333,7 +358,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       .action('UNDO')
       .highlightAction(true)
       .position('top right')
-      .hideDelay(0);
+      .hideDelay(4000);
     $mdToast.show(toast).then(function(response) {
       if (response == 'ok') {
         ctrl.cards = angular.copy(ctrl.deletedCardSet);
