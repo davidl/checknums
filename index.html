@@ -103,9 +103,12 @@ html, body {
   </md-toolbar>
   <md-content flex role="main" md-theme="altTheme">
     <div layout layout-margin layout-padding>Check multiple Powerball tickets quickly and easily.</div>
-    <div layout layout-align="start center">
-      <h2 class="heading md-title">Winning Numbers</h2>
-      <md-input-container flex="none" flex-offset="5">
+    <div layout>
+      <h2 class="heading md-title">Winning Powerball Numbers</h2>
+    </div>
+    <div layout layout-padding layout-align="start center">
+      <h3 class="md-subhead">Draw   Date</h3>
+      <md-input-container flex="none">
         <md-select ng-model="ctrl.selectedDrawingDate" placeholder="Drawing"
                    md-on-close="ctrl.drawingSelection()">
           <md-option value="custom">Custom…</md-option>
@@ -289,6 +292,7 @@ html, body {
               </svg>
             </div>
           </md-button>
+          <span ng-if="card.saved" class="saved">Saved</span>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <!--<span ng-if="$first">Edit</span>-->

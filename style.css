@@ -15,6 +15,8 @@ h2 {
 
 h2.md-title {
   color: rgba(0,0,0,0.87);
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .ball {
@@ -81,6 +83,12 @@ h2.md-title {
   background-blend-mode: screen; */
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   max-width: 600px;
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+
+.ticket.card-complete {
+  opacity: 1;
 }
 
 .ticket + .ticket {
@@ -171,6 +179,7 @@ md-switch .pp span {
   margin-top: 0;
 }
 
+.saved,
 .btn-cancel {
   color: rgba(0, 0, 0, 0.38);
 }
