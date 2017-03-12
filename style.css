@@ -47,6 +47,7 @@ h2.md-title {
 
 .draw-results {
   margin-bottom: 1em;
+  max-width: 425px;
 }
 
 /* -------- */
@@ -289,11 +290,16 @@ md-switch .pp span {
 
 .btn-add .md-button {
   border-radius: 6px;
-  box-shadow: inset 0 1px #3dcaff, 0 5px #0076a3, 0 3px 5px rgba(0, 0, 0, 0.38) !important;
-  color: #fff !important;
+  box-shadow: inset 0 1px #3949AB, 0 5px #1A237E, 0 3px 5px rgba(0, 0, 0, 0.38) !important;
   font-size: 20px;
   padding-left: 10px;
   width: 16em;
+}
+
+.btn-add .md-button:hover,
+.btn-add .md-button:focus {
+  background-color: #0D47A1;
+  text-shadow: -1px 1px #1A237E;
 }
 
 .btn-add .md-button:active {
@@ -314,22 +320,6 @@ md-switch .pp span {
 .footer-interior.extra-margin .btn-add {
   margin-bottom: 28px;
 }
-/*
-.glowing {
-    -webkit-animation: pulse 2.5s infinite;
-    animation: pulse 2.5s infinite;
-}
-@-webkit-keyframes pulse {
-    from { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
-     50% { box-shadow: 0 0 16px rgba(103, 58, 183, .6); }
-      to { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
-}
-
-@keyframes pulse {
-    from { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
-     50% { box-shadow: 0 0 16px rgba(103, 58, 183, .6); }
-      to { box-shadow: 0 0 0 rgba(0, 0, 0, .4); }
-}*/
 
 .footer-exterior {
   padding: 0 16px;
@@ -362,8 +352,22 @@ md-switch .pp span {
 }
 
 @media (min-width: 1024px) {
+  body, html {
+    background-color: #CFD8DC;
+  }
+  
   div[ng-app] {
     margin: 0 auto;
     width: 1024px;
+  }
+  
+  div[ng-app]:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 64px;
+    background-color: #607d8b;
+    width: 100vw;
   }
 }
