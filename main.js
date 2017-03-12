@@ -3,7 +3,6 @@ var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMe
 
 numbersCheckerApp.factory('winnumsService', function ($http) {
   var promise;
-  // var url = 'https://calculating-pocket.gomix.me/data';
   var url = 'https://rebel-yak.gomix.me/drawings';
   var winnumsService = {
     async: function() {
@@ -48,7 +47,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey');
   $mdThemingProvider.theme('altTheme')
-    .primaryPalette('light-blue');
+    .primaryPalette('indigo');
 })
 .controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, winnumsService) {
   var ctrl = this;
@@ -412,7 +411,6 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     $mdDialog.hide();
   };
 
-  /* TODO: add parameter to check a single card: */
   ctrl.checkNums = function () {
     var i,
         j;

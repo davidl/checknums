@@ -314,7 +314,7 @@ html, body {
     </section>
     <footer class="footer-interior" ng-class="{'extra-margin': !ctrl.cards.length}">
       <div layout="row" layout-align="center center" class="btn-add">
-        <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()" ng-class="{'glowing': !ctrl.cards.length}">
+        <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()">
           Add Your Ticket
           <md-icon>
             <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -356,7 +356,7 @@ html, body {
               <li>Click "Apply" to add your ticket and check it against the selected drawing at the top of the screen.</li>
               <li>Look at the top right corner of each ticket to see if you've won.</li>
             </ol>
-            <p>Select a drawing at the top of the screen to check all tickets. Select "Custom…" to enter a set of results - handy if you're watching a live drawing.</p>
+            <p>Select a drawing at the top of the screen to check all tickets.</p>
             <p>Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a> for complete rules.</p>
           </div>
           <div layout layout-align="end end">
