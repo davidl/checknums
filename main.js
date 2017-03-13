@@ -3,7 +3,7 @@ var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMe
 
 numbersCheckerApp.factory('winnumsService', function ($http) {
   var promise;
-  var url = 'https://rebel-yak.gomix.me/drawings';
+  var url = 'https://rebel-yak.glitch.me/drawings';
   var winnumsService = {
     async: function() {
       if ( !promise ) {
