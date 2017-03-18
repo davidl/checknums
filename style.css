@@ -4,6 +4,10 @@ h2 {
   font-weight: 700;
 }
 
+.md-toolbar-tools h1 {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.38);
+}
+
 .heading .md-subheader-inner {
   padding-left: 0;
 }
@@ -50,6 +54,10 @@ h2.md-title {
   max-width: 425px;
 }
 
+.custom-results {
+  margin-top: -2em;
+}
+
 /* -------- */
 .num-set {
   width: 165px;
@@ -76,28 +84,31 @@ h2.md-title {
   color: #1B5E20; /* green 900 */
 }
 
+.pp-select {
+  width: 80px;
+}
 
 /* -------- */
 .ticket {
-  /* background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%); */
-  /* background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255, 255, 255, 0.50) 47%, rgba(0, 0, 0, 0.50) 100%);
-  background-blend-mode: screen; */
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  height: 0;
+  margin: 0;
   max-width: 600px;
   opacity: 0;
   transition: opacity 0.4s ease-in;
 }
 
 .ticket.card-complete {
+  height: auto;
   opacity: 1;
 }
 
-.ticket + .ticket {
+.ticket + .ticket.card-complete {
   margin-top: 1em;
 }
 
 .nums-wrap {
-  max-width: 266px;
+  max-width: 340px;
 }
 
 .b {
@@ -117,7 +128,25 @@ h2.md-title {
 }
 
 .ticket md-card-content {
-  padding: 0 16px;
+  margin-top: 8px;
+  padding: 0 8px;
+}
+
+.ticket.deleting-ticket {
+  -webkit-animation: slit-out-horizontal 0.5s ease-in both;
+  animation: slit-out-horizontal 0.5s ease-in both;
+}
+
+@-webkit-keyframes slit-out-horizontal {
+    0% { opacity: 1; transform: translateZ(0) rotateX(0); }
+   54% { opacity: 1; transform: translateZ(-160px) rotateX(87deg); }
+  100% { opacity: 0; transform: translateZ(-800px) rotateX(90deg); }
+}
+
+@keyframes slit-out-horizontal {
+    0% { opacity: 1; transform: translateZ(0) rotateX(0); }
+   54% { height: 76px; opacity: 1; transform: translateZ(-160px) rotateX(87deg); }
+  100% { height: 0; opacity: 0; transform: translateZ(-800px) rotateX(90deg); }
 }
 
 md-select ~ .errors {
@@ -361,13 +390,23 @@ md-switch .pp span {
     width: 1024px;
   }
   
-  div[ng-app]:before {
+  body:before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    height: 64px;
+    height: 132px;
     background-color: #607d8b;
     width: 100vw;
+  }
+  
+  md-toolbar {
+    height: 90px;
+  }
+  
+  .md-toolbar-tools h1 {
+    font-size: 48px;
+    padding-top: 48px;
+    /* text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.38); */
   }
 }
