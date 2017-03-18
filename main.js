@@ -1,12 +1,12 @@
 var angular = angular || {};
-var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMessages'])
+var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMessages']);
 
 numbersCheckerApp.factory('winnumsService', function ($http) {
   var promise;
   var url = 'https://rebel-yak.glitch.me/drawings';
   var winnumsService = {
-    async: function() {
-      if ( !promise ) {
+    async: function () {
+      if (!promise) {
         // $http returns a promise, which has a then function, which also returns a promise
         promise = $http.get(url).then(function (response) {
           // The then function here is an opportunity to modify the response
@@ -34,7 +34,7 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
           });
           promise = null;
           return response.data;
-       });
+        });
       }
       // Return the promise to the controller
       return promise;
@@ -49,7 +49,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('altTheme')
     .primaryPalette('indigo');
 })
-.controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, winnumsService) {
+.controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, $timeout, winnumsService) {
   var ctrl = this;
   ctrl.deletedTicket = null;
   ctrl.drawings = [];
@@ -174,6 +174,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.drawingSelection = function () {
     if (ctrl.selectedDrawingDate === 'custom') {
       ctrl.draw = baseDraw();
+      ctrl.setCustomResults();
     } else {
       // find the "selectedDrawing" using the "selectedDrawingDate":
       for (var i = 0; i < ctrl.drawings.length; i++) {
@@ -184,6 +185,12 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       }
       ctrl.checkNums();
     }
+  };
+  
+  ctrl.setCustomResults = function () {
+    ctrl.addEditLabel = 'Edit';
+    ctrl.draw.multiplier = '2';
+    ctrl.showEditDialog(null);
   };
 
   ctrl.editCardIndex = null;
@@ -206,113 +213,143 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     return arr.length === 5 && arr.indexOf(val) < 0;
   };
 
-  ctrl.checkLength = function () {
-    $scope.ticketForm.white.$setValidity('length', ctrl.cardCopy.white.length === 5);
+  ctrl.checkLength = function (cardOrDraw) {
+    $scope.ticketForm.white.$setValidity('length', ctrl[cardOrDraw].white.length === 5);
   };
 
   ctrl.cardComplete = function (card) {
     return card && card.white.length === 5 && card.red !== '';
   };
-
+  
+  ctrl.showEditDialog = function (index) {
+    // a null index means we're editing a custom drawing:
+    var isCard = index !== null;
+    var cardOrDraw = isCard ? 'cardCopy' : 'draw';
+    
+    $mdDialog.show({
+      clickOutsideToClose: false,
+      scope: $scope,
+      // targetEvent: $event,
+      openFrom: isCard ? '#card-edit-' + index : '#btn-edit-results',
+      closeTo: isCard ? '#card-edit-' + index : '#btn-edit-results',
+      preserveScope: true,
+      parent: angular.element(document.body),
+      fullscreen: true,
+      template: '<md-dialog aria-label="{{::ctrl.addEditLabel}} ' + (isCard ? 'Ticket' : 'Custom Results') + '">' +
+          '<md-toolbar>' +
+            '<div class="md-toolbar-tools">' +
+                '<h2>{{::ctrl.addEditLabel}} ' + (isCard ? 'Ticket' : 'Custom Results') + '</h2>' +
+              '<span flex></span>' +
+              '<md-button class="md-icon-button" ng-click="cancelDialog()">' +
+                '<md-icon aria-label="Close dialog">' +
+                  '<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>' +
+                    '<path d="M0 0h24v24H0z" fill="none"/>' +
+                  '</svg>' + 
+                '</md-icon>' +
+              '</md-button>' +
+            '</div>' +
+          '</md-toolbar>' +
+          '<md-dialog-content flex layout-padding>' +
+            '<form name="ticketForm">'+
+              '<div style="margin: 16px 0">Pick 5 white balls and 1 red Powerball:</div>' +
+              '<div flex layout layout-align="start start" layout-wrap>' +
+                '<md-input-container flex="none" class="num-set">' +
+                  '<label>White Balls</label>' +
+                  '<md-select ng-model="ctrl.' + cardOrDraw + '.white" name="white" ' +
+                    'placeholder="White Balls" ' +
+                    'md-on-close="ctrl.checkLength(\'' + cardOrDraw + '\')" ' +
+                    'md-container-class="num-set-container" ' +
+                    'multiple>' +
+                    '<md-select-header class="num-set-header" ng-class="{\'has-five\': ctrl.' + cardOrDraw + '.white.length === 5}">' +
+                      '{{ctrl.' + cardOrDraw + '.white.length ? ctrl.' + cardOrDraw + '.white.sort().join(\', \') : \'White (5)\'}}' +
+                    '</md-select-header>' +
+                    '<md-option ng-repeat="w in ctrl.wList" value="{{::w}}" ng-disabled="ctrl.' + cardOrDraw + ' && ctrl.' + cardOrDraw + 
+                      '.white && ctrl.disableOption(ctrl.' + cardOrDraw + '.white, \'{{::w}}\')">{{::w}}</md-option>' +
+                  '</md-select>' +
+                  '<div class="errors">Please pick {{5 - ctrl.' + cardOrDraw + '.white.length}} more</div>' +
+                '</md-input-container>' +
+                '<md-input-container flex="none" flex-offset="10" class="select-red">' +
+                  '<label>Red</label>' +
+                  '<md-select ng-model="ctrl.' + cardOrDraw + '.red" name="red" placeholder="Red" md-no-asterisk required>' +
+                    '<md-option ng-repeat="r in ctrl.rList" value="{{::r}}">{{::r}}</md-option>' +
+                  '</md-select>' +
+                  '<div class="errors">Required</div>' +
+                '</md-input-container>' +
+              '</div>' +
+              '<div layout>' +
+                (isCard ?
+                  '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none">' +
+                     '<span class="pp"><span>Power</span> Play</span></md-switch>' :
+                  '<md-input-container flex="none" class="pp-select">' +
+                    '<label><span class="pp"><span>Power</span> Play</span></label>' +
+                    '<md-select ng-model="ctrl.draw.multiplier" placeholder="Power Play">' +
+                      '<md-option value="2">2x</md-option>' +
+                      '<md-option value="3">3x</md-option>' +
+                      '<md-option value="4">4x</md-option>' +
+                      '<md-option value="5">5x</md-option>' +
+                      '<md-option value="10">10x</md-option>' +
+                    '</md-select>' +
+                 '</md-input-container>'
+                ) +
+              '</div>' +
+              '<div layout="row" layout-align="space-between end">' +
+                '<div flex="50" flex-order="2"><md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.' + cardOrDraw +
+                  ')" class="md-primary md-raised" style="width: 100%">' + (isCard ? 'Check Ticket' : 'Set Results') + '</md-button></div>' +
+                '<md-button ng-click="cancelDialog()" class="btn-cancel">Cancel</md-button>' +
+              '</div>' +
+            '</form>' +
+          '</md-dialog-content>' +
+        '</md-dialog>',
+      parent: angular.element(document.body),
+      controller: function DialogController($scope, $mdDialog) {
+        $scope.closeDialog = function () {
+          if (isCard) {
+            ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
+            if (ctrl.cards[ctrl.editCardIndex].saved) ctrl.saveTicket(ctrl.cards[ctrl.editCardIndex]);
+          }
+          ctrl.checkNums();
+          $mdDialog.hide();
+        };
+        $scope.cancelDialog = function () {
+          $mdDialog.hide();
+          if (isCard) {
+            if (ctrl.addEditLabel === 'Add') {
+              ctrl.deleteCard(null, ctrl.cards.length - 1, true);
+            }
+            ctrl.cardCopy = null;
+          } else {
+            ctrl.draw = baseDraw();
+          }
+        };
+      }
+   });
+  };
+  
   ctrl.editCard = function ($event, index) {
     // Store index of card to be edited:
     ctrl.editCardIndex = index;
     // Copy card being edited to allow cancellation:
     ctrl.cardCopy = angular.copy(ctrl.cards[index]);
-
     if ($event) {
       ctrl.addEditLabel = 'Edit';
     }
-
-    $mdDialog.show({
-          clickOutsideToClose: false,
-          scope: $scope,
-          // targetEvent: $event,
-          openFrom: '#card-edit-' + index,
-          closeTo: '#card-edit-' + index,
-          preserveScope: true,
-          parent: angular.element(document.body),
-          fullscreen: true,
-          template: '<md-dialog aria-label="{{::ctrl.addEditLabel}} Ticket">' +
-              '<md-toolbar>' +
-                '<div class="md-toolbar-tools">' +
-                    '<h2>{{::ctrl.addEditLabel}} Ticket</h2>' +
-                  '<span flex></span>' +
-                  '<md-button class="md-icon-button" ng-click="cancelDialog()">' +
-                    '<md-icon aria-label="Close dialog">' +
-                      '<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">' +
-                        '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>' +
-                        '<path d="M0 0h24v24H0z" fill="none"/>' +
-                      '</svg>' + 
-                    '</md-icon>' +
-                  '</md-button>' +
-                '</div>' +
-              '</md-toolbar>' +
-              '<md-dialog-content flex layout-padding>' +
-                '<form name="ticketForm">'+
-                  '<div style="margin: 16px 0">Pick 5 white balls and 1 red Powerball:</div>' +
-                  '<div flex layout layout-align="start start" layout-wrap>' +
-                    '<md-input-container flex="none" class="num-set">' +
-                      '<label>White Balls</label>' +
-                      '<md-select ng-model="ctrl.cardCopy.white" name="white" ' +
-                        'placeholder="White Balls" ' +
-                        'md-on-close="ctrl.checkLength()"' +
-                        'md-container-class="num-set-container" ' +
-                        'multiple>' +
-                        '<md-select-header class="num-set-header" ng-class="{\'has-five\': ctrl.cardCopy.white.length === 5}">' +
-                          '{{ctrl.cardCopy.white.length ? ctrl.cardCopy.white.sort().join(\', \') : \'White (5)\'}}' +
-                        '</md-select-header>' +
-                        '<md-option ng-repeat="w in ctrl.wList" value="{{::w}}" ng-disabled="ctrl.cardCopy && ctrl.cardCopy.white && ctrl.disableOption(ctrl.cardCopy.white, \'{{::w}}\')">{{::w}}</md-option>' +
-                      '</md-select>' +
-                      '<div class="errors">Please pick {{5 - ctrl.cardCopy.white.length}} more</div>' +
-                    '</md-input-container>' +
-                    '<md-input-container flex="none" flex-offset="10" class="select-red">' +
-                      '<label>Red</label>' +
-                      '<md-select ng-model="ctrl.cardCopy.red" name="red" placeholder="Red" md-no-asterisk required>' +
-                        '<md-option ng-repeat="r in ctrl.rList" value="{{::r}}">{{::r}}</md-option>' +
-                      '</md-select>' +
-                      '<div class="errors">Required</div>' +
-                    '</md-input-container>' +
-                  '</div>' +
-                  '<div layout>' +
-                    '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none"><span class="pp"><span>Power</span> Play</span></md-switch>' +
-                  '</div>' +
-                  '<div layout="row" layout-align="space-between end">' +
-                    '<div flex="50" flex-order="2"><md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.cardCopy)" class="md-primary md-raised" style="width: 100%">Check Ticket</md-button></div>' +
-                    '<md-button ng-click="cancelDialog()" class="btn-cancel">Cancel</md-button>' +
-                  '</div>' +
-                '</form>' +
-              '</md-dialog-content>' +
-            '</md-dialog>',
-          parent: angular.element(document.body),
-          controller: function DialogController($scope, $mdDialog) {
-            $scope.closeDialog = function () {
-              // ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
-              // ctrl.checkNums();
-              ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
-              ctrl.checkNums();
-              if (ctrl.cards[ctrl.editCardIndex].saved) ctrl.saveTicket(ctrl.cards[ctrl.editCardIndex]);
-              $mdDialog.hide();
-            };
-            $scope.cancelDialog = function () {
-              $mdDialog.hide();
-              if (ctrl.addEditLabel === 'Add') {
-                ctrl.deleteCard(null, ctrl.cards.length - 1, true);
-              }
-              ctrl.cardCopy = null;
-            };
-          }
-       });
+    ctrl.showEditDialog(index);
   };
 
   ctrl.deletedCard = null;
   ctrl.deleteCard = function ($event, index, noToast) {
-    ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
-    if (ctrl.deletedCard.saved && ctrl.deletedCard.savedKey) {
-      localStorage.removeItem(ctrl.deletedCard.savedKey);
-    }
+    ctrl.cards[index].deleting = true;
     if (!noToast) {
-      showDeleteCardToast(i);
+      $timeout(function () {
+        ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
+        if (ctrl.deletedCard.saved && ctrl.deletedCard.savedKey) {
+          localStorage.removeItem(ctrl.deletedCard.savedKey);
+        }
+        showDeleteCardToast(i);
+      }, 600);
+    } else {
+      ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
     }
   };
 
