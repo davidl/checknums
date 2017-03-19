@@ -1,11 +1,13 @@
 .md-toolbar-tools h1,
 h2 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-family: 'Baloo Bhaina', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .md-toolbar-tools h1 {
+  font-size: 36px;
+  line-height: 0;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.38);
+  transform: translateY(6px);
 }
 
 .heading .md-subheader-inner {
@@ -18,9 +20,20 @@ h2 {
 }
 
 h2.md-title {
-  color: rgba(0,0,0,0.87);
+  color: rgba(0, 0, 0, 0.87);
+  margin-top: 0;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.draw-selection {
+  padding-top: 0;
+}
+
+.draw-selection h3,
+.draw-selection md-input-container {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .ball {
@@ -50,7 +63,7 @@ h2.md-title {
 }
 
 .draw-results {
-  margin-bottom: 1em;
+  margin: 0 8px 1em;
   max-width: 425px;
 }
 
@@ -92,7 +105,7 @@ h2.md-title {
 .ticket {
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   height: 0;
-  margin: 0;
+  margin: 0 8px;
   max-width: 600px;
   opacity: 0;
   transition: opacity 0.4s ease-in;
@@ -108,7 +121,7 @@ h2.md-title {
 }
 
 .nums-wrap {
-  max-width: 340px;
+  max-width: 336px;
 }
 
 .b {
@@ -215,7 +228,7 @@ md-switch .pp span {
 }
 
 .score {
-  color: #b71c1c; /* #aaa; */
+  color: #b71c1c;
   min-height: 40px;
   text-align: right;
 }
@@ -342,14 +355,6 @@ md-switch .pp span {
   transform: translateY(-2px);
 }
 
-.footer-interior.extra-margin {
-    margin-top: 42px;
-}
-
-.footer-interior.extra-margin .btn-add {
-  margin-bottom: 28px;
-}
-
 .footer-exterior {
   padding: 0 16px;
   text-align: center;
@@ -407,6 +412,5 @@ md-switch .pp span {
   .md-toolbar-tools h1 {
     font-size: 48px;
     padding-top: 48px;
-    /* text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.38); */
   }
 }
