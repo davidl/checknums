@@ -92,7 +92,7 @@ html, body {
   100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
 }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 <link rel="stylesheet" href="style.css">
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-92226497-1','auto');ga('send','pageview');</script>
@@ -109,8 +109,8 @@ html, body {
     <div layout>
       <h2 class="heading md-title">Winning Powerball Numbers</h2>
     </div>
-    <div layout layout-padding layout-align="start center">
-      <h3 class="md-subhead">Draw Date</h3>
+    <div layout layout-padding layout-align="start center" class="draw-selection">
+      <h3 class="md-subhead">Drawing</h3>
       <md-input-container flex="none">
         <md-select ng-model="ctrl.selectedDrawingDate" placeholder="Drawing"
                    md-on-close="ctrl.drawingSelection()">
@@ -201,7 +201,7 @@ html, body {
         </md-card-actions>
       </md-card>
     </section>
-    <footer class="footer-interior" ng-class="{'extra-margin': !ctrl.cards.length}">
+    <footer class="footer-interior">
       <div layout="row" layout-align="center center" class="btn-add">
         <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()">
           Add Your Ticket
@@ -213,7 +213,7 @@ html, body {
           </md-icon>
         </md-button>
       </div>
-      <div layout="row" layout-align="center center" ng-show="ctrl.cards.length">
+      <div layout="row" layout-align="center center" ng-show="ctrl.cards.length && ctrl.cardComplete(ctrl.cards[0])">
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
       <div layout="row" layout-align="center center">
@@ -225,7 +225,7 @@ html, body {
       <div class="md-dialog-container" id="disclaimerDialog">
         <md-dialog layout-padding>
           <h2 class="md-title">Disclaimer</h2>
-          <div style="margin: 0">This is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a   given drawing. It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization. Be sure to double-check all tickets using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</div>
+          <div style="margin: 0">This is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a given drawing. It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization. Be sure to double-check all tickets using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</div>
           <div layout layout-align="end end">
             <span flex></span>
             <md-button ng-click="ctrl.closeDialog()" class="md-raised md-primary" aria-label="OK">OK</md-button>
