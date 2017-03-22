@@ -15,9 +15,7 @@ function updateStaticCache() {
     cache.addAll([
       '/favicon.ico',
       '/manifest.json',
-      'https://rebel-yak.glitch.me/drawings',
-      'https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-6749834995443806.js',
-      'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+      'https://rebel-yak.glitch.me/drawings'
     ]);
     // These items must be cached for the Service Worker to complete installation
     return cache.addAll([
@@ -30,7 +28,6 @@ function updateStaticCache() {
       'https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js',
       'https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js',
       'https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js',
-      'https://www.google-analytics.com/analytics.js',
       'https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css',
       'https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500',
       'https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2',
@@ -106,10 +103,9 @@ self.addEventListener('fetch', event => {
       })
       .catch( () => {
         // OFFLINE
-        // If the request is for a page, show an offline message
-        //if (request.headers.get('Accept').indexOf('text/html') !== -1) {
-        //  return caches.match('/offline/');
-        //}
+        if (request.headers.get('Accept').indexOf('text/html') !== -1) {
+          return caches.match('/');
+        }
       });
     })
   );
