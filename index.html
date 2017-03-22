@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
@@ -5,23 +6,15 @@
 <link rel="dns-prefetch" href="https://ajax.googleapis.com/">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client: "ca-pub-6749834995443806",enable_page_level_ads:true});</script>
-<title>CheckNums: Check Your Powerball Tickets and View Powerball Results</title>
+<title>CheckNums: Check Your Powerball Tickets</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="twitter:card" content="summary">
 <meta property="twitter:site" content="@checknums">
 <meta property="og:url" content="https://checknums.com">
-<meta property="og:description" content="Check your Powerball tickets and view Powerball results quickly and easily.">
-<meta property="og:title" content="CheckNums: Check Your Powerball Tickets and View Powerball Results">
+<meta property="og:description" content="Check your Powerball tickets quickly">
+<meta property="og:title" content="Check Your Powerball Tickets Quickly">
 <meta property="og:type" content="website">
-<!--<meta property="og:image" content="">-->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#607d8b">
-<meta name="apple-mobile-web-app-title" content="CheckNums">
-<meta name="application-name" content="CheckNums">
-<meta name="theme-color" content="#607d8b">
+<meta property="og:image" content="checknums-260x260.png">
 <style>
 html, body {
   height: 100%;
@@ -113,9 +106,9 @@ html, body {
     </div>
   </md-toolbar>
   <md-content flex role="main" md-theme="altTheme">
-    <div layout layout-margin layout-padding>Check your Powerball tickets and view Powerball results quickly and easily.</div>
+    <div layout layout-margin layout-padding>Check your Powerball tickets quickly and easily.</div>
     <div layout>
-      <h2 class="heading md-title">Winning Powerball Numbers</h2>
+      <h2 class="heading md-title">Powerball Results</h2>
     </div>
     <div layout layout-padding layout-align="start center" class="draw-selection">
       <h3 class="md-subhead">Drawing</h3>
@@ -156,7 +149,7 @@ html, body {
        <h2 class="md-title md-primary">Your Tickets</h2>
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
-      <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" class="ticket">
+      <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" ng-hide="card.isEdit" class="ticket">
         <div class="md-title score" layout="row" layout-align="end end">
           <span ng-show="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
           <span ng-show="card.jackpot">Jackpot</span>
@@ -172,25 +165,7 @@ html, body {
           </div>
           <div layout flex="none" ng-show="card.multiplier"><span class="pp"><span>Power</span>Play</span></div>
         </md-card-content>
-        <md-card-actions layout="row" layout-align="start center">
-          <md-button ng-click="ctrl.toggleSaveTicket($index)" ng-if="ctrl.hasLocalStorage" aria-label="Save Ticket Toggle" class="btn-save md-icon-button">
-            <div ng-if="!card.saved">
-              <md-tooltip md-direction="right">Save Ticket</md-tooltip>
-              <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
-                <path d="M0 0h24v24H0z" fill="none"/>
-              </svg>
-            </div>
-            <div ng-if="card.saved">
-              <svg class="saved" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0z" fill="none"/>
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                <path d="M0 0h24v24H0z" fill="none"/>
-              </svg>
-            </div>
-          </md-button>
-          <span ng-if="card.saved" class="saved">Saved</span>
-          <span flex></span>
+        <md-card-actions layout="row" layout-align="end center">
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <md-tooltip md-direction="top">Edit Ticket</md-tooltip>
             <svg fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -205,7 +180,7 @@ html, body {
               <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
             </svg>
-        </md-button>
+          </md-button>
         </md-card-actions>
       </md-card>
     </section>
@@ -224,8 +199,8 @@ html, body {
       <div layout="row" layout-align="center center" ng-show="ctrl.cards.length && ctrl.cardComplete(ctrl.cards[0])">
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
-      <div layout="row" layout-align="center center">
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>•
+      <div layout="row" layout-align="center center" style="color: #9e9e9e">
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>●
         <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
       </div>
     </footer>
@@ -233,7 +208,11 @@ html, body {
       <div class="md-dialog-container" id="disclaimerDialog">
         <md-dialog layout-padding>
           <h2 class="md-title">Disclaimer</h2>
-          <div style="margin: 0">This is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a given drawing. It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization. Be sure to double-check all tickets using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</div>
+          <div style="margin: 0">
+            <p>CheckNums is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a given drawing.</p>
+            <p>It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization.</p>
+            <p>Be sure to <strong>double-check all tickets</strong> using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</p>
+          </div>
           <div layout layout-align="end end">
             <span flex></span>
             <md-button ng-click="ctrl.closeDialog()" class="md-raised md-primary" aria-label="OK">OK</md-button>
@@ -246,14 +225,15 @@ html, body {
         <md-dialog layout-padding>
           <h2 class="md-title">Instructions</h2>
           <div style="margin: 0">
-            <p style="margin-top: 0">Quickly check Powerball tickets for a single drawing. Click the Add Ticket button and:</p>
+            <p style="margin-top: 0">Quickly check Powerball tickets for a single drawing. Click "Add Ticket" and:</p>
             <ol>
               <li>Select 5 white balls and 1 red Powerball</li>
-              <li>Click "Apply" to add your ticket and check it against the selected drawing at the top of the screen.</li>
+              <li>Click "Check Ticket" to add your ticket and check it against the selected drawing at the top of the screen.</li>
               <li>Look at the top right corner of each ticket to see if you've won.</li>
             </ol>
-            <p>Select a drawing at the top of the screen to check all tickets.</p>
-            <p>Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a> for complete rules.</p>
+            <p>Selecting a drawing at the top of the screen checks all tickets, which are saved on your device until deleted.</p>
+            <p><strong>This site is meant to be helpful, but is UNOFFICIAL.</strong> Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a> 
+              to view complete rules and official results.</p>
           </div>
           <div layout layout-align="end end">
             <span flex></span>
@@ -263,11 +243,9 @@ html, body {
       </div>
     </div>
   </md-content>
-<!--
-  <footer class="footer-exterior" flex="none" layout layout-align="center center">
+  <!--<footer class="footer-exterior" flex="none" layout layout-align="center center">
     <div class="ad-wrapper"></div>
-  </footer>
--->
+  </footer>-->
 </div>
 <div class="loading">
   <span class="dot">L</span>
