@@ -1,3 +1,16 @@
+'use strict';
+
+if ('serviceWorker' in navigator) {
+    // If service workers are supported
+    navigator.serviceWorker.register('/sw.js');
+} else if ('applicationCache' in window) {
+    // Otherwise inject an iframe to use appcache
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', '/appcache.html');
+    iframe.setAttribute('style', 'border: 0; height: 0; width: 0');
+    document.querySelector('body').appendChild(iframe);
+}
+
 var angular = angular || {};
 var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMessages']);
 
