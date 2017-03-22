@@ -1,3 +1,16 @@
+'use strict';
+
+if ('serviceWorker' in navigator) {
+    // If service workers are supported
+    navigator.serviceWorker.register('/sw.js');
+} else if ('applicationCache' in window) {
+    // Otherwise inject an iframe to use appcache
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', '/appcache.html');
+    iframe.setAttribute('style', 'border: 0; height: 0; width: 0');
+    document.querySelector('body').appendChild(iframe);
+}
+
 var angular = angular || {};
 var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMessages']);
 
@@ -173,7 +186,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
 
   ctrl.drawingSelection = function () {
     if (ctrl.selectedDrawingDate === 'custom') {
-      // ctrl.draw = baseDraw();
+      ctrl.draw = baseDraw();
       ctrl.setCustomResults();
     } else {
       // find the "selectedDrawing" using the "selectedDrawingDate":
@@ -306,21 +319,16 @@ numbersCheckerApp.config(function($mdThemingProvider) {
         $scope.closeDialog = function () {
           if (isCard) {
             ctrl.cards[ctrl.editCardIndex] = angular.copy(ctrl.cardCopy);
-            if (ctrl.hasLocalStorage) {
-              ctrl.saveTicket(ctrl.cards[ctrl.editCardIndex]);
-            }
+            if (ctrl.cards[ctrl.editCardIndex].saved) ctrl.saveTicket(ctrl.cards[ctrl.editCardIndex]);
           }
           ctrl.checkNums();
           $mdDialog.hide();
-          ctrl.cardCopy = null;
         };
         $scope.cancelDialog = function () {
           $mdDialog.hide();
           if (isCard) {
             if (ctrl.addEditLabel === 'Add') {
               ctrl.deleteCard(null, ctrl.cards.length - 1, true);
-            } else {
-              ctrl.cards[ctrl.editCardIndex].isEdit = false;
             }
             ctrl.cardCopy = null;
           } else {
@@ -338,7 +346,6 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     ctrl.cardCopy = angular.copy(ctrl.cards[index]);
     if ($event) {
       ctrl.addEditLabel = 'Edit';
-      ctrl.cards[index].isEdit = true;
     }
     ctrl.showEditDialog(index);
   };
@@ -353,7 +360,6 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           localStorage.removeItem(ctrl.deletedCard.savedKey);
         }
         showDeleteCardToast(i);
-        delete ctrl.deletedCard.deleting;
       }, 600);
     } else {
       ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
@@ -418,6 +424,16 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     t.savedKey = key;
     t.saved = true;
     localStorage.setItem(key, JSON.stringify(t));
+  };
+  
+  ctrl.toggleSaveTicket = function ($index) {
+    var t = ctrl.cards[$index];
+    if (t.saved && t.savedKey) {
+      localStorage.removeItem(t.savedKey);
+      t.saved = false;
+    } else {
+      ctrl.saveTicket(t);
+    }
   };
 
   ctrl.showDisclaimerDialog = function(ev) {

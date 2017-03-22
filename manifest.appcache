@@ -1,0 +1,21 @@
+CACHE MANIFEST
+
+#version 1.0 2017-03-21
+
+CACHE:
+/
+/style.css
+/main.js
+https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500
+https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js
+https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js
+https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-6749834995443806.js
+https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+https://www.google-analytics.com/analytics.js
+
+NETWORK:
+*
