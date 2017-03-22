@@ -34,7 +34,7 @@ function updateStaticCache() {
       'https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css',
       'https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500',
       'https://fonts.gstatic.com/s/roboto/v15/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2',
-      'https://fonts.gstatic.com/s/baloobhaina/v1/HxxbxOVf9WQem_hKo1MXShampu5_7CjHW5spxoeN3Vs.woff2'
+      'https://fonts.gstatic.com/s/baloobhaina/v1/HxxbxOVf9WQem_hKo1MXShampu5_7CjHW5spxoeN3Vs.woff2',
       'https://fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUZBw1xU1rKptJj_0jans920.woff2'
     ]);
   });
