@@ -419,8 +419,4 @@ md-switch .pp span {
     font-size: 48px;
     padding-top: 48px;
   }
-  
-  .md-dialog-container {
-    max-width: 800px;
-  }
 }
