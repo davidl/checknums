@@ -185,21 +185,21 @@ md-select.ng-invalid-required.ng-touched ~ .errors {
 }
 
 .pp {
-  background-color: #fff;
   color: rgba(0, 0, 0, 0.54);
   font-family: Roboto, sans-serif;
   font-size: 10px;
+  height: 11px;
   letter-spacing: 1px;
   margin-top: 1em;
   text-transform: uppercase;
 }
 
-.pp span {
+.pp span,
+.score .pp span {
   background-color: rgba(0, 0, 0, 0.54);
   color: #fff;
   margin-right: 2px;
-  padding-left: 2px;
-  padding-right: 1px;
+  padding: 0 1px 0 2px;
 }
 
 .pp,
@@ -326,6 +326,11 @@ md-switch .pp span {
 .md-icon-button svg.saved,
 .md-icon-button svg.saved:hover {
   fill: #00aeef;
+}
+
+.ad-link {
+  background-color: #056F00 !important;
+  color: #fff !important;
 }
 
 .footer-interior {
