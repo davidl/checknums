@@ -10,6 +10,13 @@ h2 {
   transform: translateY(6px);
 }
 
+md-content {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .heading .md-subheader-inner {
   padding-left: 0;
 }
@@ -40,7 +47,7 @@ h2.md-title {
   background-color: #fff;
   border-radius: 20px;
   height: 40px;
-  padding: 10px;
+  padding: 10px 10px 10px 11px;
   width: 40px;
 }
 .red {
@@ -63,8 +70,10 @@ h2.md-title {
 }
 
 .draw-results {
-  margin: 0 8px 1em;
-  max-width: 425px;
+  height: 56px;
+  max-width: 414px;
+  padding: 0 8px 1em;
+  user-select: auto;
 }
 
 .custom-results {
@@ -185,21 +194,27 @@ md-select.ng-invalid-required.ng-touched ~ .errors {
 }
 
 .pp {
-  background-color: #fff;
   color: rgba(0, 0, 0, 0.54);
   font-family: Roboto, sans-serif;
   font-size: 10px;
+  height: 11px;
   letter-spacing: 1px;
   margin-top: 1em;
   text-transform: uppercase;
 }
 
-.pp span {
+.score .pp {
+  margin: 0;
+  transform: translateY(-8px);
+}
+
+.pp span,
+.score .pp span {
   background-color: rgba(0, 0, 0, 0.54);
+  border-radius: 0;
   color: #fff;
   margin-right: 2px;
-  padding-left: 2px;
-  padding-right: 1px;
+  padding: 0 1px 0 2px;
 }
 
 .pp,
@@ -243,11 +258,11 @@ md-switch .pp span {
   padding: 8px;
 }
 .score .success {
-  background-color: #2e7d32;
+  background-color: #056F00; /* #2e7d32; */
   color: #fff;
 }
 .ticket.success {
-  border: 1px solid #2e7d32;
+  border: 1px solid #056F00; /* #2e7d32; */
 }
 
 .ticket.jackpot {
@@ -326,6 +341,15 @@ md-switch .pp span {
 .md-icon-button svg.saved,
 .md-icon-button svg.saved:hover {
   fill: #00aeef;
+}
+
+.ad-link {
+  background-color: #056F00 !important;
+  color: #fff !important;
+}
+
+.ad-link .ad-label {
+  color: #EEE !important;
 }
 
 .footer-interior {

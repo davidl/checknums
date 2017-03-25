@@ -91,8 +91,8 @@ html, body {
   100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
 }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 <link rel="stylesheet" href="style.css">
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-92226497-1','auto');ga('send','pageview');</script>
 </head>
@@ -133,14 +133,16 @@ html, body {
         </svg>
       </md-button>
     </div>
-    <div layout flex layout-align="space-around center" class="draw-results" ng-if="ctrl.selectedDrawingDate && ctrl.draw.white.length">
-      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[0]}}</span>
-      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[1]}}</span>
-      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[2]}}</span>
-      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[3]}}</span>
-      <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[4]}}</span>
-      <span class="ball md-whiteframe-1dp red">{{ctrl.draw.red}}</span>
-      <span class="multiplier md-whiteframe-1dp">{{ctrl.draw.multiplier}}x</span>
+    <div layout class="draw-results">
+      <div layout flex layout-align="space-around center" ng-show="ctrl.selectedDrawingDate && ctrl.draw.white.length">
+        <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[0]}}</span>
+        <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[1]}}</span>
+        <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[2]}}</span>
+        <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[3]}}</span>
+        <span class="ball md-whiteframe-1dp">{{ctrl.draw.white[4]}}</span>
+        <span class="ball md-whiteframe-1dp red">{{ctrl.draw.red}}</span>
+        <span class="multiplier md-whiteframe-1dp">{{ctrl.draw.multiplier}}x</span>
+      </div>
     </div>
     <section>
       <md-subheader>
@@ -148,7 +150,9 @@ html, body {
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" ng-hide="card.isEdit" class="ticket">
-        <div class="md-title score" layout="row" layout-align="end end">
+        <div class="md-title score" layout="row" layout-align="start end">
+          <div layout flex="none" ng-show="card.multiplier"><span class="pp"><span>Power</span>Play</span></div>
+          <span flex></span>
           <span ng-show="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
           <span ng-show="card.jackpot">Jackpot</span>
         </div>
@@ -161,9 +165,10 @@ html, body {
             <div class="ball md-whiteframe-1dp"><div ng-class="{'match': card.matchedWhite.indexOf(card.white[4]) > -1}">{{card.white[4]}}</div></div>
             <div class="ball md-whiteframe-1dp red"><div ng-class="{'match': card.matchedRed}">{{card.red}}</div></div>
           </div>
-          <div layout flex="none" ng-show="card.multiplier"><span class="pp"><span>Power</span>Play</span></div>
         </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
+        <md-card-actions layout="row" layout-align="start center">
+          <md-button class="ad-link md-raised" target="_blank" ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011"><span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;"></md-button>
+          <span flex></span>
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <md-tooltip md-direction="top">Edit Ticket</md-tooltip>
             <svg fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -197,7 +202,7 @@ html, body {
       <div layout="row" layout-align="center center" ng-show="ctrl.cards.length && ctrl.cardComplete(ctrl.cards[0])">
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
-      <div layout="row" layout-align="center center" style="color: #9e9e9e">
+      <div layout="row" layout-align="center center" style="color: rgba(0, 0, 0, 0.56)">
         <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>●
         <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
       </div>
@@ -209,6 +214,8 @@ html, body {
           <div style="margin: 0">
             <p>CheckNums is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a given drawing.</p>
             <p>It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization.</p>
+            <p>We are a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to 
+              provide a means for us to earn fees by linking to Amazon.com and affiliated sites.</p>
             <p>Be sure to <strong>double-check all tickets</strong> using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</p>
           </div>
           <div layout layout-align="end end">
@@ -254,20 +261,11 @@ html, body {
   <span class="dot">n</span>
   <span class="dot">g</span>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
 <script src="main.js"></script>
-<script>
-amzn_assoc_ad_type = "link_enhancement_widget";
-amzn_assoc_tracking_id = "checknums-20";
-amzn_assoc_linkid = "fe37a4c6b5b4474485023b8dfbc9227e";
-amzn_assoc_placement = "";
-amzn_assoc_marketplace = "amazon";
-amzn_assoc_region = "US";
-</script>
-<script src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&MarketPlace=US"></script>
 </body>
 </html>
