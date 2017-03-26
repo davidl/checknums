@@ -150,11 +150,14 @@ html, body {
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" ng-hide="card.isEdit" class="ticket">
-        <div class="md-title score" layout="row" layout-align="start end">
-          <div layout flex="none" ng-show="card.multiplier"><span class="pp"><span>Power</span>Play</span></div>
-          <span flex></span>
-          <span ng-show="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
-          <span ng-show="card.jackpot">Jackpot</span>
+        <div class="md-title score" layout="row" layout-align="start center">
+          <div ng-if="card.multiplier && !card.jackpot" class="pp-wrapper"><span class="pp"><span>Power</span>Play</span></div>
+          <span ng-if="!card.jackpot && (card.score || card.score === 0)" flex></span>
+          <span ng-if="!card.jackpot && (card.score || card.score === 0)" ng-class="{'success': card.score > 0}">{{card.score | currency:"$":0}}</span>
+          <span ng-if="card.jackpot" class="jp">Jackpot</span>
+        </div>
+        <div layout="row" ng-if="card.multiplier && card.jackpot">
+          <div class="pp-wrapper"><span class="pp"><span>Power</span>Play</span></div>
         </div>
         <md-card-content>
           <div class="nums-wrap" layout layout-align="space-between center">
@@ -167,7 +170,8 @@ html, body {
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
-          <md-button class="ad-link md-raised" target="_blank" ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011"><span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;"></md-button>
+          <md-button class="ad-link md-raised" target="_blank" ng-if="card.jackpot || (card.score && card.score !== 0)"
+                     ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011"><span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;"></md-button>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <md-tooltip md-direction="top">Edit Ticket</md-tooltip>

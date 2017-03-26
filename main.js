@@ -24,7 +24,6 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
         promise = $http.get(url).then(function (response) {
           // The then function here is an opportunity to modify the response
           // The return value gets picked up by the then in the controller.
-          
           angular.forEach(response.data, function (value, key, obj) {
             var d = new Date(value.date),
                 day = d.getDay(),
@@ -39,7 +38,13 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
                 prefix = 'Today ';
                 prefixSet = true;
               }
+            } else if (value.date === obj[key - 1].date) {
+              console.log('repeat date for obj[' + key + ']: ' + value.date);
+              // obj.splice(key, 1);
             }
+            
+            
+            
             if (!prefixSet) {
               prefix = day === 6 ? 'Sat ' : day === 3 ? 'Wed ' : '';
             }
