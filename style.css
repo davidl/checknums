@@ -203,6 +203,14 @@ md-select.ng-invalid-required.ng-touched ~ .errors {
   text-transform: uppercase;
 }
 
+.pp-wrapper {
+  margin: 8px 8px -15px;
+}
+
+.score .pp-wrapper {
+  margin: 0;
+}
+
 .score .pp {
   margin: 0;
   transform: translateY(-8px);
@@ -267,6 +275,7 @@ md-switch .pp span {
 
 .ticket.jackpot {
   background-image: linear-gradient(to top, #0fd850 0%, #f9f047 100%);
+  margin-top: 8px;
   margin-bottom: 1em;
   position: relative;
 }
@@ -280,7 +289,7 @@ md-switch .pp span {
   width: 108px;
 }
 
-.ticket.jackpot .score span {
+.ticket.jackpot .score .jp {
   background-color: #1B5E20;
   background-image: linear-gradient(#2E7D32 -50%, #43a047 50%, #43a047 0%, #2E7D32 150%);
   box-shadow: -3px 5px 6px -5px rgba(0, 0, 0, 0.5);
@@ -296,14 +305,14 @@ md-switch .pp span {
   text-align: center;
   text-indent: -8px;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  top: -65px;
+  top: -27px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 150px;
 }
 
-.ticket.jackpot .score span:before,
-.ticket.jackpot .score span:after {
+.ticket.jackpot .score .jp:before,
+.ticket.jackpot .score .jp:after {
   border: 4px solid transparent;
   border-top-color: #2E7D32;
   bottom: -8px;
@@ -312,12 +321,12 @@ md-switch .pp span {
   z-index: -1;
 }
 
-.ticket.jackpot .score span:before {
+.ticket.jackpot .score .jp:before {
   left: 0;
   border-left-color: #2E7D32;
 }
 
-.ticket.jackpot .score span:after {
+.ticket.jackpot .score .jp:after {
   right: 7px;
   border-right-color: #2E7D32;
 }
