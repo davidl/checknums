@@ -24,7 +24,17 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
         promise = $http.get(url).then(function (response) {
           // The then function here is an opportunity to modify the response
           // The return value gets picked up by the then in the controller.
-          angular.forEach(response.data, function (value, key, obj) {
+          
+          // Remove duplicates (necessary until the service is fixed):
+          var data = response.data;
+          var dataParsed = [data[0]];
+          angular.forEach(data, function (value, key) {
+            if (key > 0 && (data[key].date !== data[key - 1].date)) {
+              dataParsed.push(data[key]);
+            }
+          });
+          
+          angular.forEach(dataParsed, function (value, key, obj) {
             var d = new Date(value.date),
                 day = d.getDay(),
                 prefix = '',
@@ -38,12 +48,7 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
                 prefix = 'Today ';
                 prefixSet = true;
               }
-            } else if (value.date === obj[key - 1].date) {
-              console.log('repeat date for obj[' + key + ']: ' + value.date);
-              // obj.splice(key, 1);
             }
-            
-            
             
             if (!prefixSet) {
               prefix = day === 6 ? 'Sat ' : day === 3 ? 'Wed ' : '';
@@ -51,7 +56,7 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
             obj[key].date = prefix + value.date;
           });
           promise = null;
-          return response.data;
+          return dataParsed;
         });
       }
       // Return the promise to the controller
