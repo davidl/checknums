@@ -109,9 +109,9 @@ html, body {
       <h2 class="heading md-title">Powerball Results</h2>
     </div>
     <div layout layout-padding layout-align="start center" class="draw-selection">
-      <h3 class="md-subhead">Drawing</h3>
+      <h3 class="md-subhead">Drawing:</h3>
       <md-input-container flex="none">
-        <md-select ng-model="ctrl.selectedDrawingDate" placeholder="Drawing"
+        <md-select ng-model="ctrl.selectedDrawingDate" placeholder="Loading…"
                    md-on-close="ctrl.drawingSelection()">
           <md-option value="custom">Custom…</md-option>
           <md-option ng-if="ctrl.drawings.length" ng-value="draw.date" ng-repeat="draw in ctrl.drawings">{{::draw.date}}</md-option>
@@ -146,7 +146,11 @@ html, body {
     </div>
     <section>
       <md-subheader>
-       <h2 class="md-title md-primary">Your Tickets</h2>
+        <h2 class="md-title md-primary">Your Tickets</h2>
+        <!--<h2 class="md-title md-primary" layout layout-align="space-between center">
+          <span>Your Tickets</span> 
+          <span class="total" ng-if="ctrl.total !== null">Total: {{ctrl.total | currency:"$":0}}</span>
+        </h2>-->
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" ng-hide="card.isEdit" class="ticket">
@@ -207,7 +211,7 @@ html, body {
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
       <div layout="row" layout-align="center center" style="color: rgba(0, 0, 0, 0.56)">
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>●
+        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>
         <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
       </div>
     </footer>
