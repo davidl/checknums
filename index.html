@@ -1,16 +1,16 @@
-
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns#">
+<html lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/WebSite">
 <head>
 <meta charset="utf-8">
 <link rel="dns-prefetch" href="https://ajax.googleapis.com/">
-<title>CheckNums: Check Your Powerball Tickets</title>
+<title itemprop="name">CheckNums: Check Your Powerball Tickets</title>
+<link rel="canonical" href="https://checknums.com" itemprop="url">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="twitter:card" content="summary">
 <meta property="twitter:site" content="@checknums">
 <meta property="og:url" content="https://checknums.com">
-<meta property="og:description" content="Check your Powerball tickets quickly">
-<meta property="og:title" content="Check Your Powerball Tickets Quickly">
+<meta property="og:description" content="Check your Powerball tickets quickly and easily">
+<meta property="og:title" content="CheckNums: Check Your Powerball Tickets">
 <meta property="og:type" content="website">
 <meta property="og:image" content="checknums-260x260.png">
 <style>
@@ -175,7 +175,10 @@ html, body {
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
           <md-button class="ad-link md-raised" target="_blank" ng-if="card.jackpot || (card.score && card.score !== 0)"
-                     ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011"><span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;"></md-button>
+                     ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011">
+            <md-tooltip md-direction="top">Support this site and treat yourself!</md-tooltip>
+            <span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;">
+          </md-button>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <md-tooltip md-direction="top">Edit Ticket</md-tooltip>
@@ -210,9 +213,12 @@ html, body {
       <div layout="row" layout-align="center center" ng-show="ctrl.cards.length && ctrl.cardComplete(ctrl.cards[0])">
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
       </div>
-      <div layout="row" layout-align="center center" style="color: rgba(0, 0, 0, 0.56)">
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>
-        <md-button md-no-ink class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
+      <div layout="row" layout-align="center center">
+        <md-button class="md-primary" ng-click="ctrl.showDisclaimerDialog($event)">Disclaimer</md-button>
+        <md-button class="md-primary" ng-click="ctrl.showInstructionsDialog($event)">Instructions</md-button>
+      </div>
+      <div layout="row" layout-align="center center">
+        <md-button itemprop="sameAs" href="http://www.twitter.com/CheckNums" target="_blank" class="md-primary btn-tw">CheckNums</md-button>
       </div>
     </footer>
     <div style="visibility: hidden">
@@ -221,7 +227,7 @@ html, body {
           <h2 class="md-title">Disclaimer</h2>
           <div style="margin: 0">
             <p>CheckNums is an <strong>unofficial</strong> tool to check one or more Powerball tickets for a given drawing.</p>
-            <p>It is <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization.</p>
+            <p>We are <strong>not affiliated</strong> with the Multi-State Lottery Association or any other organization.</p>
             <p>We are a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to 
               provide a means for us to earn fees by linking to Amazon.com and affiliated sites.</p>
             <p>Be sure to <strong>double-check all tickets</strong> using official tools. Visit <a href="http://www.powerball.com/" rel="noopener" target="_blank">powerball.com</a>.</p>
