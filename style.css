@@ -1,6 +1,6 @@
 .md-toolbar-tools h1,
 h2 {
-  font-family: 'Baloo Bhaina', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "Baloo Bhaina", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .md-toolbar-tools h1 {
@@ -111,6 +111,82 @@ h2.md-title {
   width: 80px;
 }
 
+.btn-amzn b {
+  -webkit-animation: jello-horizontal 9s infinite both;
+	animation: jello-horizontal 9s infinite both;
+  display: inline-block;
+}
+
+.btn-amzn .flip {
+  direction: rtl;
+  display: inline-block;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  unicode-bidi: bidi-override;
+}
+
+/* animation jello-horizontal by http://animista.net */
+@-webkit-keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
 /* -------- */
 .ticket {
   background-image: linear-gradient(45deg, #fdfbfb 0%, #ebedee 100%);
@@ -176,6 +252,15 @@ h2.md-title {
     0% { opacity: 1; transform: translateZ(0) rotateX(0); }
    54% { height: 76px; opacity: 1; transform: translateZ(-160px) rotateX(87deg); }
   100% { height: 0; opacity: 0; transform: translateZ(-800px) rotateX(90deg); }
+}
+
+.scoreSum {
+  color: #b71c1c;
+}
+
+.scoreSum.success,
+.scoreSum.jp {
+  color: #056F00;
 }
 
 md-select ~ .errors {
@@ -259,17 +344,22 @@ md-switch .pp span {
 
 .score {
   color: #b71c1c;
+  font-family: "Baloo Bhaina", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.2;
   min-height: 40px;
   text-align: right;
 }
+
 .score span {
   border-radius: 0 0 0 2px;
   padding: 8px;
 }
+
 .score .success {
   background-color: #056F00; /* #2e7d32; */
   color: #fff;
 }
+
 .ticket.success {
   border: 1px solid #056F00; /* #2e7d32; */
 }
@@ -295,7 +385,9 @@ md-switch .pp span {
   background-image: linear-gradient(#2E7D32 -50%, #43a047 50%, #43a047 0%, #2E7D32 150%);
   box-shadow: -3px 5px 6px -5px rgba(0, 0, 0, 0.5);
   color: #fff;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
+  font-variant: small-caps; /**/
   font-weight: bold;
   left: 32px;
   letter-spacing: 0.5px;

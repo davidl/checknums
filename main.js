@@ -175,6 +175,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
 
   function initialize () {
     ctrl.cards = [];
+    ctrl.scoreSum = 0;
     ctrl.draw = baseDraw();
     if (ctrl.hasLocalStorage) {
       var len = localStorage.length;
@@ -378,6 +379,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
         }
         showDeleteCardToast(i);
         delete ctrl.deletedCard.deleting;
+        ctrl.checkNums();
       }, 600);
     } else {
       ctrl.deletedCard = ctrl.cards.splice(index, 1)[0];
@@ -399,6 +401,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           ctrl.saveTicket(ctrl.deletedCard);
         }
         ctrl.deletedCard = null;
+        ctrl.checkNums();
       }
     });
   }
@@ -433,8 +436,10 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           if (value.saved) ctrl.saveTicket(ctrl.cards[key]);
         });
         ctrl.deletedCardSet = null;
+        ctrl.checkNums();
       }
     });
+    ctrl.checkNums();
   };
   
   ctrl.saveTicket = function (t) {
@@ -470,6 +475,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   };
 
   ctrl.checkNums = function () {
+    ctrl.scoreSum = 0;
     var i,
         j;
     for (i = 0; i < ctrl.cards.length; i++) {
@@ -532,6 +538,11 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           // Multiplier is capped at 2X for 5+0 match:
           var multiplier = tic.matchedWhite.length === 5 ? 2 : ctrl.draw.multiplier;
           tic.score = multiplier * tic.score;
+        }
+        if (tic.jackpot) {
+          ctrl.scoreSum = 'Jackpot';
+        } else if (ctrl.scoreSum !== 'Jackpot') {
+          ctrl.scoreSum += tic.score;
         }
       }
     }
