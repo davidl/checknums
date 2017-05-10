@@ -1,11 +1,16 @@
 CACHE MANIFEST
 
-#version 1.03077
+#version 1.03077819
+
 CACHE:
 /
 /style.css
 /main.js
-https://fonts.googleapis.com/css?family=Baloo+Bhaina|Roboto:400,500
+https://fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AabCcDdehIiJKklmNnOoPqRrsTtuwYy
+https://fonts.gstatic.com/l/font?kit=HxxbxOVf9WQem_hKo1MXSnhPD6j0n-1TT2usK0il9KbWHFQxWtGnQG7KvP07D87OnwOXX-yibbkajyeHubU-qmfwALe-pgkCo9fpU1XAJ8I&skey=3699402d0d6ef054&v=v1
+https://fonts.googleapis.com/css?family=Roboto:400,500
+https://fonts.gstatic.com/s/roboto/v16/CrYjSnGjrRCn0pd9VQsnFOvvDin1pK8aKteLpeZ5c0A.woff
+https://fonts.gstatic.com/s/roboto/v16/RxZJdnzeo3R5zSexge8UUbO3LdcAZYWl9Si6vvxL-qU.woff
 https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css
 https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js
 https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js

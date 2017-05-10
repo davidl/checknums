@@ -1,4 +1,5 @@
 {
+    "short_name": "CheckNums",
     "name": "CheckNums",
     "icons": [
         {
@@ -14,6 +15,6 @@
     ],
     "theme_color": "#607d8b",
     "background_color": "#607d8b",
-    "start_url": "https://checknums.com/",
+    "start_url": "/?utm_source=homescreen",
     "display": "standalone"
 }
