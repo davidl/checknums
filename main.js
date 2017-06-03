@@ -66,13 +66,33 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
   return winnumsService;
 });
 
+numbersCheckerApp.factory('jackpotService', function ($http) {
+  var promise;
+  var url = 'https://exciting-monkey.glitch.me/jackpot';
+  var jackpotService = {
+    async: function () {
+      if (!promise) {
+        // $http returns a promise, which has a then function, which also returns a promise
+        promise = $http.get(url).then(function (response) {
+          // The then function here is an opportunity to modify the response
+          // The return value gets picked up by the then in the controller.
+          return response.data;
+        });
+      }
+      // Return the promise to the controller
+      return promise;
+    }
+  };
+  return jackpotService;
+});
+
 numbersCheckerApp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey');
   $mdThemingProvider.theme('altTheme')
     .primaryPalette('indigo');
 })
-.controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, $timeout, winnumsService) {
+.controller('AppCtrl', function ($scope, $element, $mdToast, $mdDialog, $timeout, winnumsService, jackpotService) {
   var ctrl = this;
   ctrl.deletedTicket = null;
   ctrl.drawings = [];
@@ -83,6 +103,10 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     red: '',
     white: []
   };
+  ctrl.nextDraw = '';
+  ctrl.jackpot = 'init';
+  ctrl.jackpotCashValue = null;
+  ctrl.jackpotIsPending = false;
   
   function storageAvailable(type) {
     try {
@@ -173,6 +197,35 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     });
   };
 
+  ctrl.getNextDrawing = function () {
+    ctrl.gettingJackpot = true;
+    ctrl.jackpotCopy = ctrl.jackpot;
+    jackpotService.async().then(function (data) {
+      ctrl.nextDrawDate = data.nextDrawDate;
+      ctrl.jackpot = data.jackpot;
+      ctrl.jackpotCashValue = data.jackpotCashValue;
+      ctrl.jackpotIsPending = data.jackpot.toLowerCase() === 'results pending'
+      ctrl.gettingJackpot = false;
+      if (ctrl.jackpotCopy !== 'init' && (ctrl.jackpot !== ctrl.jackpotCopy)) {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('Jackpot info updated')
+            .position('top right')
+            .hideDelay(3000)
+        );
+      } else if (ctrl.jackpotCopy !== 'init') {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('No new jackpot info')
+            .position('top right')
+            .hideDelay(3000)
+        );
+      }
+    }, function (error) {
+      ctrl.gettingJackpot = false;
+    });
+  };
+  
   function initialize () {
     ctrl.cards = [];
     ctrl.scoreSum = 0;
@@ -193,6 +246,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
       }
     }
     ctrl.getDrawings();
+    ctrl.getNextDrawing();
   }
   initialize();
 

@@ -33,6 +33,15 @@ h2.md-title {
   padding-bottom: 0;
 }
 
+.amzn-wrap {
+  padding-top: 24px;
+}
+
+.amzn-wrap,
+.score-sum-wrap {
+  max-width: 600px;
+}
+
 .welcome,
 .draw-selection {
   padding-top: 0;
@@ -254,12 +263,12 @@ h2.md-title {
   100% { height: 0; opacity: 0; transform: translateZ(-800px) rotateX(90deg); }
 }
 
-.scoreSum {
+.score-sum {
   color: #b71c1c;
 }
 
-.scoreSum.success,
-.scoreSum.jp {
+.score-sum.success,
+.score-sum.jp {
   color: #056F00;
 }
 

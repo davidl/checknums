@@ -1,7 +1,7 @@
 'use strict';
 
 // Version of the offline cache (change this value everytime you want to update cache)
-var CACHE_NAME = 'version_003416'
+var CACHE_NAME = 'version_003418'
 
 // Add a path you want to cache in this list.
 var URLS = [                
@@ -15,8 +15,8 @@ var URLS = [
   'https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js',
   'https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js',
   'https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css',
-  'https://fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AabCcDdehIiJKklmNnOoPqRrsTtuwYy',
-  'https://fonts.gstatic.com/l/font?kit=HxxbxOVf9WQem_hKo1MXSnhPD6j0n-1TT2usK0il9KbWHFQxWtGnQG7KvP07D87OnwOXX-yibbkajyeHubU-qmfwALe-pgkCo9fpU1XAJ8I&skey=3699402d0d6ef054&v=v1',
+  'https://fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AaBbCcDdefhIiJKklMmNnOoPpqRrSsTtuWwYy%26%27',
+  'https://fonts.gstatic.com/l/font?kit=HxxbxOVf9WQem_hKo1MXSs7Ser2SWD4gaXDTqRRGD-rgeyAB_I2lvqbwztHAs6MWdHe2irjGTTj5T503LXbOFCeamgWV5dywxK_FNJqOYss&skey=3699402d0d6ef054&v=v1',
   'https://fonts.googleapis.com/css?family=Roboto:400,500',
   'https://fonts.gstatic.com/s/roboto/v16/CrYjSnGjrRCn0pd9VQsnFOvvDin1pK8aKteLpeZ5c0A.woff',
   'https://fonts.gstatic.com/s/roboto/v16/RxZJdnzeo3R5zSexge8UUbO3LdcAZYWl9Si6vvxL-qU.woff'
