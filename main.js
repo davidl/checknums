@@ -16,7 +16,6 @@ var numbersCheckerApp = angular.module('NumbersCheckerApp', ['ngMaterial', 'ngMe
 
 numbersCheckerApp.factory('winnumsService', function ($http) {
   var promise;
-  // var url = 'https://rebel-yak.glitch.me/drawings';
   var url = 'drawings.json';
   var winnumsService = {
     async: function () {
@@ -69,7 +68,6 @@ numbersCheckerApp.factory('winnumsService', function ($http) {
 
 numbersCheckerApp.factory('jackpotService', function ($http) {
   var promise;
-  // var url = 'https://exciting-monkey.glitch.me/jackpot';
   var url = 'nextdrawing.json';
   var jackpotService = {
     async: function () {
