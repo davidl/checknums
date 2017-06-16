@@ -1,5 +1,4 @@
-# Check your Powerball tickets quickly and easily.
+# checknums-service
 
-Provide an easy-to-use tool to check Powerball tickets against numbers scraped from Powerball.com.
+This service provides Powerball drawing results (as JSON) using data from [Powerball.com](http://powerball.com). The output of this service is consumed by [checknums.com](https://checknums.com) where you can check multiple Powerball tickets quickly and easily.
 
-_DISCLAIMER:_ This is an *unofficial* site and is neither affiliated with nor endorsed by Powerball/Multi-State Lottery Association.
