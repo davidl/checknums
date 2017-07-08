@@ -26,6 +26,14 @@ md-content {
   margin-left: 16px;
 }
 
+.heading-jackpot {
+  margin-right: 16px;
+}
+.heading-jackpot,
+.subheading-jackpot {
+  text-align: center;
+}
+
 h2.md-title {
   color: rgba(0, 0, 0, 0.87);
   margin-top: 0;
@@ -40,6 +48,10 @@ h2.md-title {
 .amzn-wrap,
 .score-sum-wrap {
   max-width: 600px;
+}
+
+.score-sum-wrap {
+  line-height: 1.1;
 }
 
 .welcome,
@@ -93,6 +105,10 @@ h2.md-title {
 /* -------- */
 .num-set {
   width: 165px;
+}
+
+.select-red {
+  width: 120px;
 }
 
 .num-set-container md-option[disabled] .md-icon {
@@ -527,6 +543,13 @@ md-switch .pp span {
   position: absolute;
   width: 4px;
   word-wrap: break-word;
+}
+
+@media (min-width: 737px) {
+  .heading-jackpot,
+  .subheading-jackpot {
+    text-align: left;
+  }
 }
 
 @media (min-width: 960px) {
