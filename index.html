@@ -15,84 +15,25 @@
 <meta property="og:image" content="https://checknums.com/checknums-260x260.png">
 <link rel="manifest" href="/manifest.json">
 <style>
-html, body {
-  height: 100%;
-  position: relative;
-}
-.loading {
-  background-color: #fff;
-  display: none;
-  left: 50%;
-  padding: 1em;
-  position: fixed;
-  top: 25%;
-  transform: translate(-50%, -50%);
-  width: 70vw;
-}
-[ng-cloak] ~ .loading {
-  display: block;
-}
-.dot {
-  -webkit-animation: loadingFade 3s infinite;
-  animation: loadingFade 3s infinite;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.17);
-  float: left;
-  font-family: monospace;
-  font-size: 5vw;
-  height: 8vw;
-  line-height: 8vw;
-  margin: 0 1vw;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.2), -1px -1px 1px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  width: 8vw;
-}
-.dot:nth-child(1) {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.dot:nth-child(2) {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.dot:nth-child(3) {
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-.dot:nth-child(4) {
-  -webkit-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
-.dot:nth-child(5) {
-  -webkit-animation-delay: 0.6s;
-  animation-delay: 0.6s;
-}
-.dot:nth-child(6) {
-  -webkit-animation-delay: 0.7s;
-  animation-delay: 0.7s;
-}
-.dot:nth-child(7) {
-  -webkit-animation-delay: 0.8s;
-  animation-delay: 0.8s;
-}
-@-webkit-keyframes loadingFade {
-    0% { background-color: transparent; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
-   50% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.17); }
-   76% { background-color: rgba(183, 28, 28, 0.46); }
-   80% { background-color: transparent; }
-  100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
-}
-@keyframes loadingFade {
-    0% { background-color: transparent; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
-   50% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.17); }
-   76% { background-color: rgba(183, 28, 28, 0.46); }
-   80% { background-color: transparent; }
-  100% { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0); }
-}
+html,body{height:100%;position:relative}
+.loading{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Helvetica Neue",sans-serif;-webkit-animation:fade-in .5s 2s ease-out,scale-out-center .5s cubic-bezier(.55,.085,.68,.53) 1s both;animation:fade-in .5s 2s ease-out,scale-out-center .5s cubic-bezier(.55,.085,.68,.53) 1s both;background:#fff;display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-align:center;align-items:center;-webkit-box-align:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;font-family:Roboto, "Helvetica Neue", Helvetica, sans-serif;height:100%;left:0;position:fixed;top:0;width:100%;z-index:2}
+.load-wrapper{border:0;color:#1b5e20;height:150px;margin-top:5px;padding:0;-webkit-transition:opacity 0.5s ease-out;transition:opacity 0.5s ease-out;width:150px}
+.load-wrapper::before{content:'';display:block;padding-top:100%}
+.load-spinner{-webkit-animation:rotateSvg 3s linear infinite;animation:rotateSvg 3s linear infinite;bottom:0;height:40px;left:0;margin:auto;position:absolute;right:0;-webkit-transform-origin:center center;transform-origin:center center;top:0;width:40px}
+.load-path{-webkit-animation:dash 2.25s ease-in-out infinite, colorSvg 2.25s ease-in-out infinite;animation:dash 2.25s ease-in-out infinite, colorSvg 2.25s ease-in-out infinite;stroke-dasharray:80px, 250px;stroke:#1b5e20;stroke-dashoffset:0;stroke-width:3px}
+@-webkit-keyframes rotateSvg{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes rotateSvg{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@-webkit-keyframes dash{0.000001%{stroke-dasharray:1px,250px;stroke-dashoffset:0}60%{stroke-dasharray:88px,200px;stroke-dashoffset:-35px}100%{stroke-dasharray:88px,200px;stroke-dashoffset:-124px}}
+@keyframes dash{0.000001%{stroke-dasharray:1px,250px;stroke-dashoffset:0}60%{stroke-dasharray:88px,200px;stroke-dashoffset:-35px}100%{stroke-dasharray:88px,200px;stroke-dashoffset:-124px}}
+@-webkit-keyframes colorSvg{100%,0.000001%{stroke:#1b5e20}30%{stroke:rgba(27,94,32,0.4)}}
+@keyframes colorSvg{100%,0.000001%{stroke:#1b5e20}30%{stroke:rgba(27,94,32,0.4)}}
+@-webkit-keyframes scale-out-center{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}100%{-webkit-transform:scale(0);transform:scale(0);opacity:0}}
+@keyframes scale-out-center{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}100%{-webkit-transform:scale(0);transform:scale(0);opacity:0}}
+@-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+[ng-cloak]~.loading{-webkit-animation:none;animation:none}
 </style>
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AaBbCcDdefhIiJKklMmNnOoPpqRrSsTtuWwYy%26%27">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AaBbCcDdefghIiJKklMmNnOoPpqRrSsTtuWwYy%26%27">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500">
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 <link rel="stylesheet" href="style.css">
@@ -108,15 +49,15 @@ html, body {
   <md-content flex role="main" md-theme="altTheme">
     <h2 class="md-title" layout layout-margin layout-padding>Check your numbers quick & easy.</h2>
     <div class="welcome" layout layout-margin layout-padding>Add your Powerball tickets to instantly check them with the latest results. Tickets are stored privately on your device until you delete them. Results are available as soon as they are posted to the Powerball homepage so feel free to add your tickets when you buy them and then refresh the results after the drawing to see if you've won!</div>
-    <div layout>
-      <h2 class="heading" ng-class="{'md-title': ctrl.jackpotIsPending, 'md-headline': !ctrl.jackpotIsPending}" style="margin-bottom: 0">
-        <span ng-if="ctrl.jackpotIsPending || ctrl.jackpot === 'init'">Jackpot</span>
-        <span ng-if="!ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">{{ctrl.nextDrawDate !== 'today' ? ctrl.nextDrawDate.substr(0, ctrl.nextDrawDate.indexOf(' ')) : 'Today'}}'s Jackpot is now<br>{{ctrl.jackpot}}</span>
+    <div layout layout-align="center start" layout-align-gt-xs="start start">
+      <h2 class="heading heading-jackpot" ng-class="{'md-title': ctrl.jackpotIsPending, 'md-headline': !ctrl.jackpotIsPending}" style="margin-bottom: 0">
+        <span ng-if="ctrl.jackpotIsPending || ctrl.jackpot === 'init'">Loading current Jackpot…</span>
+        <span ng-if="!ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">{{ctrl.nextDrawDate !== 'today' ? ctrl.nextDrawDate.substr(0, ctrl.nextDrawDate.indexOf(' ')) : 'Today'}}'s Jackpot is now <br hide-gt-xs>{{ctrl.jackpot}}</span>
       </h2>
     </div>
     <div layout layout-padding class="draw-selection">
-      <h3 class="md-subhead">
-        <span ng-if="ctrl.gettingJackpot">Loading…</span>
+      <h3 class="md-subhead subheading-jackpot">
+        <span ng-if="ctrl.gettingJackpot">Jackpot</span>
         <span ng-if="!ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">The estimated jackpot is {{ctrl.jackpot}} (cash value {{ctrl.jackpotCashValue}}) for 
           <span ng-if="ctrl.nextDrawDate === 'today'">today's drawing.</span>
           <span ng-if="ctrl.nextDrawDate !== 'today'">{{ctrl.nextDrawDate.substr(0, ctrl.nextDrawDate.indexOf(' '))}}'s drawing ({{ctrl.nextDrawDate.substr(ctrl.nextDrawDate.indexOf(' ') + 1, ctrl.nextDrawDate.length)}}).</span>
@@ -124,8 +65,10 @@ html, body {
         <span ng-if="ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">The jackpot for the upcoming drawing on {{ctrl.nextDrawDate}} is pending.</span>
       </h3>
     </div>
-    <div layout>
-      <h2 class="heading md-title">Powerball Results</h2>
+    <div layout="row" layout-xs="column" layout-wrap>
+      <h2 class="heading md-title" flex="noshrink">Step 1. Select a Powerball Drawing</h2>
+      <!--<div flex="noshrink" layout-padding><em>All tickets are checked using these numbers.</em></div>
+      <div flex show-gt-md></div>-->
     </div>
     <div layout layout-padding layout-align="start center" class="draw-selection">
       <h3 class="md-subhead">Drawing:</h3>
@@ -174,10 +117,10 @@ html, body {
     <section>
       <md-subheader>
         <h2 class="md-title md-primary score-sum-wrap" layout layout-align="space-between start">
-          <span>Your Tickets</span> 
-          <span class="score-sum" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum !== null && ctrl.scoreSum !== 'Jackpot'"
+          <span>Step 2. Check Your Tickets<span ng-if="ctrl.selectedDrawingDate"> for the {{ctrl.selectedDrawingDate.substr(0, ctrl.selectedDrawingDate.lastIndexOf('/'))}} drawing</span></span> 
+          <span flex="noshrink" class="score-sum" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum !== null && ctrl.scoreSum !== 'Jackpot'"
                 ng-class="{'success': ctrl.scoreSum > 0}">Total: {{ctrl.scoreSum | currency:"$":0}}</span>
-          <span class="score-sum jp" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum === 'Jackpot'">Total: JACKPOT</span>
+          <span flex="noshrink" class="score-sum jp" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum === 'Jackpot'">Total: JACKPOT</span>
         </h2>
       </md-subheader>
       <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
@@ -290,18 +233,18 @@ html, body {
       </div>
     </div>
   </md-content>
-  <!--<footer class="footer-exterior" flex="none" layout layout-align="center center">
-    <div class="ad-wrapper"></div>
-  </footer>-->
+<!--   <footer class="footer-exterior" flex="none" layout layout-align="center center">
+    <div class="ad-wrapper">
+      <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=ea8a351d-adda-4900-91d0-ab7e96558767"></script>
+    </div>
+  </footer> -->
 </div>
 <div class="loading">
-  <span class="dot">L</span>
-  <span class="dot">o</span>
-  <span class="dot">a</span>
-  <span class="dot">d</span>
-  <span class="dot">i</span>
-  <span class="dot">n</span>
-  <span class="dot">g</span>
+	<div class="load-wrapper">
+		<svg class="load-spinner" viewBox="25 25 50 50">
+			<circle class="load-path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+		</svg>
+	</div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>

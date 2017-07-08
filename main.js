@@ -464,19 +464,23 @@ numbersCheckerApp.config(function($mdThemingProvider) {
   ctrl.deleteAllTickets = function () {
     ctrl.deletedCardSet = angular.copy(ctrl.cards);
     ctrl.cards = [];
-    if (ctrl.hasLocalStorage) {
-      var len = localStorage.length;
-      var key = '';
-      var val = '';
-      if (len) {
-        for (var i = 0; i < len; i++) {
-          key = localStorage.key(i);
-          if (key && key.indexOf('cn-') === 0) {
-            localStorage.removeItem(key);
+    function clearStoredTickets () {
+      if (ctrl.hasLocalStorage) {
+        var len = localStorage.length;
+        var key = '';
+        var val = '';
+        if (len) {
+          for (var i = 0; i < len; i++) {
+            key = localStorage.key(i);
+            // if (key && (key.indexOf('cn-') === 0)) {
+            if (key) {
+              localStorage.removeItem(key);
+            }
           }
         }
       }
-    };
+    }
+    clearStoredTickets();
     var toast = $mdToast.simple()
       .textContent('All Tickets Deleted')
       .action('UNDO')
@@ -491,6 +495,8 @@ numbersCheckerApp.config(function($mdThemingProvider) {
         });
         ctrl.deletedCardSet = null;
         ctrl.checkNums();
+      } else {
+        ctrl.deletedCardSet = null;
       }
     });
     ctrl.checkNums();
