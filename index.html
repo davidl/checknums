@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://checknums.com/checknums-260x260.png">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#607d8b">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AaBbCcDdefghIiJKklMmNnOoPpqRrSsTtuWwYy%26%27">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Baloo+Bhaina&text=.:!$0123456789AaBbCcDdEefghIiJKklMmNnOoPpqRrSsTtuWwYy%26%27">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500">
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
 <link rel="stylesheet" href="style.css">
@@ -33,7 +33,7 @@
     <div class="welcome" layout layout-margin layout-padding>Add your Powerball tickets to instantly check them with the latest results. Tickets are stored privately on your device until you delete them. Results are available as soon as they are posted to the Powerball homepage so feel free to add your tickets when you buy them and then refresh the results after the drawing to see if you've won!</div>
     <div layout layout-align="center start" layout-align-gt-xs="start start">
       <h2 class="heading heading-jackpot" ng-class="{'md-title': ctrl.jackpotIsPending, 'md-headline': !ctrl.jackpotIsPending}" style="margin-bottom: 0">
-        <span ng-if="ctrl.jackpotIsPending || ctrl.jackpot === 'init'">Loading current Jackpot…</span>
+        <span ng-if="ctrl.jackpotIsPending || ctrl.jackpot === 'init'">Jackpot</span>
         <span ng-if="!ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">{{ctrl.nextDrawDate !== 'today' ? ctrl.nextDrawDate.substr(0, ctrl.nextDrawDate.indexOf(' ')) : 'Today'}}'s Jackpot is now <br hide-gt-xs>{{ctrl.jackpot}}</span>
       </h2>
     </div>
