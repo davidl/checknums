@@ -177,7 +177,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
         if (drawingsUpdated) {
           $mdToast.show(
             $mdToast.simple()
-              .textContent('Results updated')
+              .textContent('Results' + (ctrl.cards.length ? ' and tickets' : '') + ' updated')
               .position('top right')
               .hideDelay(3000)
           );
