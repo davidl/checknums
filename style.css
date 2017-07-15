@@ -476,7 +476,7 @@ md-switch .pp span {
 }
 
 .ad-link .ad-label {
-  color: #EEE !important;
+  color: #eee !important;
 }
 
 .footer-interior {
@@ -590,5 +590,9 @@ md-switch .pp span {
   
   form {
     min-width: 320px;
+  }
+  
+  .amzn-wrap {
+    margin: 8px auto;
   }
 }
