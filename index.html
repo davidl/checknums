@@ -30,7 +30,7 @@
   </md-toolbar>
   <md-content flex role="main" md-theme="altTheme">
     <h2 class="md-title" layout layout-margin layout-padding>Check your numbers quick & easy.</h2>
-    <div class="welcome" layout layout-margin layout-padding>Add your Powerball tickets to instantly check them with the latest results. Tickets are stored privately on your device until you delete them. Results are available as soon as they are posted to the Powerball homepage so feel free to add your tickets when you buy them and then refresh the results after the drawing to see if you've won!</div>
+    <div class="welcome" layout layout-margin layout-padding>Tickets are stored on your device until you delete them, so add your tickets as soon as you buy them and then REFRESH the drawings to instantly total your winnings for the selected drawing.</div>
     <div layout layout-align="center start" layout-align-gt-xs="start start">
       <h2 class="heading heading-jackpot" ng-class="{'md-title': ctrl.jackpotIsPending, 'md-headline': !ctrl.jackpotIsPending}" style="margin-bottom: 0">
         <span ng-if="ctrl.jackpotIsPending || ctrl.jackpot === 'init'">Jackpot</span>
@@ -39,7 +39,7 @@
     </div>
     <div layout layout-padding class="draw-selection">
       <h3 class="md-subhead subheading-jackpot">
-        <span ng-if="ctrl.gettingJackpot">Jackpot</span>
+        <!--<span ng-if="ctrl.gettingJackpot">Jackpot</span>-->
         <span ng-if="!ctrl.jackpotIsPending && ctrl.jackpot !== 'init'">The estimated jackpot is {{ctrl.jackpot}} (cash value {{ctrl.jackpotCashValue}}) for 
           <span ng-if="ctrl.nextDrawDate === 'today'">today's drawing.</span>
           <span ng-if="ctrl.nextDrawDate !== 'today'">{{ctrl.nextDrawDate.substr(0, ctrl.nextDrawDate.indexOf(' '))}}'s drawing ({{ctrl.nextDrawDate.substr(ctrl.nextDrawDate.indexOf(' ') + 1, ctrl.nextDrawDate.length)}}).</span>
@@ -48,9 +48,7 @@
       </h3>
     </div>
     <div layout="row" layout-xs="column" layout-wrap>
-      <h2 class="heading md-title" flex="noshrink">Step 1. Select a Powerball Drawing</h2>
-      <!--<div flex="noshrink" layout-padding><em>All tickets are checked using these numbers.</em></div>
-      <div flex show-gt-md></div>-->
+      <h2 class="heading md-title" flex="noshrink">Powerball Results</h2>
     </div>
     <div layout layout-padding layout-align="start center" class="draw-selection">
       <h3 class="md-subhead">Drawing:</h3>
@@ -61,14 +59,15 @@
           <md-option ng-if="ctrl.drawings.length" ng-value="draw.date" ng-repeat="draw in ctrl.drawings">{{::draw.date}}</md-option>
         </md-select>
       </md-input-container>
-      <md-button ng-click="ctrl.getDrawings()" aria-label="Check for Latest Drawings" class="md-icon-button" ng-disabled="ctrl.gettingDrawings" ng-hide="ctrl.selectedDrawingDate === 'custom'">
+      <!--<md-button ng-click="ctrl.getDrawings()" aria-label="Check for Latest Drawings" class="md-icon-button" ng-disabled="ctrl.gettingDrawings" ng-hide="ctrl.selectedDrawingDate === 'custom'">
         <md-tooltip md-direction="top">Check for new results</md-tooltip>
         <svg ng-hide="ctrl.gettingDrawings" fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
         <md-progress-circular md-mode="indeterminate" ng-if="ctrl.gettingDrawings" md-diameter="20"></md-progress-circular>
-      </md-button>
+      </md-button>-->
+      <md-button ng-click="ctrl.getDrawings()" aria-label="Check for Latest Drawings" class="md-primary" ng-disabled="ctrl.gettingDrawings" ng-hide="ctrl.selectedDrawingDate === 'custom'" ng-disabled="ctrl.gettingDrawings">Refresh</md-button>
       <md-button class="md-icon-button" ng-click="ctrl.setCustomResults()" ng-if="ctrl.selectedDrawingDate && ctrl.selectedDrawingDate === 'custom'" id="btn-edit-results" aria-label="Edit">
         <md-tooltip md-direction="right">Edit Results</md-tooltip>
         <svg fill="#9e9e9e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -88,24 +87,15 @@
         <span class="multiplier md-whiteframe-1dp">{{ctrl.draw.multiplier}}x</span>
       </div>
     </div>
-    <div layout layout-xs="column" layout-margin layout-padding layout-align="center center" class="amzn-wrap"
-         md-whiteframe="{{ctrl.cards.length ? ctrl.cards.length > 23 ? '24' : ctrl.cards.length : '1'}}">
-      If you find this site useful, please use this link to   
-      <md-button class="md-primary btn-amzn" rel="noopener" target="_blank"
-                 ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011">
-        <b>✨</b>&nbsp;&nbsp;Shop at Amazon&nbsp;&nbsp;<span class="flip"><b>✨</b></span>&nbsp;<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" alt="" style="border:0 none !important; margin:0 !important;">
-      </md-button>
-    </div>
     <section>
-      <md-subheader>
+      <md-subheader ng-if="ctrl.cards.length">
         <h2 class="md-title md-primary score-sum-wrap" layout layout-align="space-between start">
-          <span>Step 2. Check Your Tickets<span ng-if="ctrl.selectedDrawingDate"> for the {{ctrl.selectedDrawingDate.substr(0, ctrl.selectedDrawingDate.lastIndexOf('/'))}} drawing</span></span> 
-          <span flex="noshrink" class="score-sum" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum !== null && ctrl.scoreSum !== 'Jackpot'"
+          <span flex>Your Tickets</span>
+          <span class="score-sum" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum !== null && ctrl.scoreSum !== 'Jackpot'"
                 ng-class="{'success': ctrl.scoreSum > 0}">Total: {{ctrl.scoreSum | currency:"$":0}}</span>
-          <span flex="noshrink" class="score-sum jp" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum === 'Jackpot'">Total: JACKPOT</span>
+          <span class="score-sum jp" ng-if="ctrl.selectedDrawingDate && ctrl.cards.length && ctrl.scoreSum === 'Jackpot'">Total: JACKPOT</span>
         </h2>
       </md-subheader>
-      <div ng-if="!ctrl.cards.length">Add your tickets and see if you won!</div>
       <md-card ng-repeat="card in ctrl.cards" ng-class="{'success': card.score > 0, 'jackpot': card.jackpot, 'card-complete': ctrl.cardComplete(card), 'deleting-ticket': card.deleting}" ng-hide="card.isEdit" class="ticket">
         <div class="md-title score" layout="row" layout-align="start center">
           <div ng-if="card.multiplier && !card.jackpot" class="pp-wrapper"><span class="pp"><span>Power</span>Play</span></div>
@@ -127,11 +117,6 @@
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
-<!--           <md-button class="ad-link md-raised" rel="noopener" target="_blank" ng-if="card.jackpot || (card.score && card.score !== 0)"
-                     ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011">
-            <md-tooltip md-direction="top">Support this site and treat yourself!</md-tooltip>
-            <span class="ad-label">Ad:</span> Shop at Amazon&nbsp;🎉<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:0 none !important; margin:0 !important;">
-          </md-button> -->
           <span flex></span>
           <md-button class="md-icon-button" ng-click="ctrl.editCard($event, $index)" aria-label="Edit">
             <md-tooltip md-direction="top">Edit Ticket</md-tooltip>
@@ -154,7 +139,7 @@
     <footer class="footer-interior">
       <div layout="row" layout-align="center center" class="btn-add">
         <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()">
-          Add Your Ticket
+          Add Ticket
           <md-icon aria-label>
             <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <path d="M0 0h24v24H0z" fill="none"/>
@@ -174,6 +159,14 @@
         <md-button itemprop="sameAs" href="http://www.twitter.com/CheckNums" rel="noopener" target="_blank" class="md-primary btn-tw"><span class="wrap">Follow @CheckNums on Twitter</span></md-button>
       </div>
     </footer>
+    <div layout layout-xs="column" layout-margin layout-padding layout-align="center center" class="amzn-wrap"
+         md-whiteframe="{{ctrl.cards.length ? ctrl.cards.length > 23 ? '24' : ctrl.cards.length : '1'}}">
+      If you find this site useful, please use this link to   
+      <md-button class="md-primary btn-amzn" rel="noopener" target="_blank"
+                 ng-href="https://www.amazon.com/b?_encoding=UTF8&tag=checknums-20&linkCode=ur2&linkId=e7c76fefbc9568f92c1a7d274db088ba&camp=1789&creative=9325&node=2335752011">
+        <b>✨</b>&nbsp;&nbsp;Shop at Amazon&nbsp;&nbsp;<span class="flip"><b>✨</b></span>&nbsp;<img src="//ir-na.amazon-adsystem.com/e/ir?t=checknums-20&l=ur2&o=1" width="1" height="1" alt="" style="border:0 none !important; margin:0 !important;">
+      </md-button>
+    </div>
     <div style="visibility: hidden">
       <div class="md-dialog-container" id="disclaimerDialog">
         <md-dialog layout-padding>
