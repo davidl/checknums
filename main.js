@@ -300,6 +300,8 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     return card && card.white.length === 5 && card.red !== '';
   };
   
+  ctrl.addAnother = false;
+  
   ctrl.showEditDialog = function (index) {
     // a null index means we're editing a custom drawing:
     var isCard = index !== null;
@@ -356,7 +358,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
                   '<div class="errors">Required</div>' +
                 '</md-input-container>' +
               '</div>' +
-              '<div layout>' +
+              '<div layout layout-align="space-between start">' +
                 (isCard ?
                   '<md-switch class="md-primary use-multiplier" aria-label="PowerPlay" ng-model="ctrl.cardCopy.multiplier" flex="none">' +
                      '<span class="pp"><span>Power</span> Play</span></md-switch>' :
@@ -371,6 +373,7 @@ numbersCheckerApp.config(function($mdThemingProvider) {
                     '</md-select>' +
                  '</md-input-container>'
                 ) +
+                (ctrl.addEditLabel === 'Add' ? '<md-switch class="md-primary use-multiplier" aria-label="Add Another" ng-model="ctrl.addAnother"><span class="pp">Add Another</span></md-switch>' : '') +
               '</div>' +
               '<div layout="row" layout-align="space-between end">' +
                 '<div flex="50" flex-order="2"><md-button ng-click="closeDialog()" ng-disabled="!ctrl.cardComplete(ctrl.' + cardOrDraw +
@@ -392,6 +395,10 @@ numbersCheckerApp.config(function($mdThemingProvider) {
           ctrl.checkNums();
           $mdDialog.hide();
           ctrl.cardCopy = null;
+          if (ctrl.addAnother) {
+            ctrl.addAnother = false;
+            ctrl.addCard();
+          }
         };
         $scope.cancelDialog = function () {
           $mdDialog.hide();
