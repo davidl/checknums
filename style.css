@@ -54,6 +54,10 @@ h2.md-title {
   line-height: 1.1;
 }
 
+.welcome br {
+  display: none;
+}
+
 .welcome,
 .draw-selection {
   padding-top: 0;
@@ -553,6 +557,12 @@ md-switch .pp span {
   }
 }
 
+@media (min-width: 806px) {
+  .welcome br {
+    display: inline;
+  }
+}
+
 @media (min-width: 960px) {
   md-toast.md-top {
       top: 64px;
@@ -594,5 +604,9 @@ md-switch .pp span {
   
   .amzn-wrap {
     margin: 8px auto;
+  }
+  
+  md-dialog {
+    max-width: 820px;
   }
 }
