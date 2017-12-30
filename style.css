@@ -41,11 +41,6 @@ h2.md-title {
   padding-bottom: 0;
 }
 
-.amzn-wrap {
-  padding-top: 24px;
-}
-
-.amzn-wrap,
 .score-sum-wrap {
   max-width: 600px;
 }
@@ -138,20 +133,6 @@ h2.md-title {
 
 .pp-select {
   width: 80px;
-}
-
-.btn-amzn b {
-  -webkit-animation: jello-horizontal 9s infinite both;
-	animation: jello-horizontal 9s infinite both;
-  display: inline-block;
-}
-
-.btn-amzn .flip {
-  direction: rtl;
-  display: inline-block;
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  unicode-bidi: bidi-override;
 }
 
 /* animation jello-horizontal by http://animista.net */
@@ -600,10 +581,6 @@ md-switch .pp span {
   
   form {
     min-width: 320px;
-  }
-  
-  .amzn-wrap {
-    margin: 8px auto;
   }
   
   md-dialog {
