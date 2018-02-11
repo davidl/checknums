@@ -477,9 +477,9 @@ numbersCheckerApp.config(function($mdThemingProvider) {
         var key = '';
         var val = '';
         if (len) {
-          for (var i = len; i > 0; i--) {
+          for (var i = len - 1; i > 0; i--) {
             key = localStorage.key(i);
-            if (key.indexOf('cn-') === 0) {
+            if (key && key.indexOf('cn-') === 0) {
               localStorage.removeItem(key);
             }
           }
