@@ -474,14 +474,18 @@ numbersCheckerApp.config(function($mdThemingProvider) {
     function clearStoredTickets () {
       if (ctrl.hasLocalStorage) {
         var len = localStorage.length;
+        var indicesToDelete = []; // store indices of keys to delete
         var key = '';
         var val = '';
         if (len) {
           for (var i = 0; i < len; i++) {
             key = localStorage.key(i);
-            if (key && (key.indexOf('cn-') === 0)) {
-              localStorage.removeItem(key);
+            if (key.indexOf('cn-') === 0) {
+              indicesToDelete.push(i);
             }
+          }
+          for (var j = 0; j < indicesToDelete.length; j++) {
+            localStorage.removeItem(localStorage.key(j));
           }
         }
       }
