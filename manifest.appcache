@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-#version_003450
+#version_003451
 
 CACHE:
 /
@@ -17,7 +17,6 @@ https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js
 https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js
 https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js
 https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js
-https://www.google-analytics.com/analytics.js
 
 NETWORK:
 *
