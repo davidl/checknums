@@ -137,15 +137,7 @@
     </section>
     <footer class="footer-interior">
       <div layout="row" layout-align="center center" class="btn-add">
-        <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()">
-          Add Ticket
-          <md-icon aria-label alt>
-            <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/>
-            </svg>
-          </md-icon>
-        </md-button>
+        <md-button class="md-primary md-raised" layout-padding-gt-sm ng-click="ctrl.addCard()">Add Ticket</md-button>
       </div>
       <div layout="row" layout-align="center center" ng-show="ctrl.cards.length && ctrl.cardComplete(ctrl.cards[0])">
         <md-button md-no-ink class="md-accent" ng-click="ctrl.deleteAllTickets()">Delete All Tickets</md-button>
